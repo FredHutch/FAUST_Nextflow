@@ -32,7 +32,7 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
 # Build the FAUST Docker Image
 
 1. Add your GitHub Personal Access Token to the current environment
-    - `export GITHUB_PERSONAL_ACCESS_TOKEN=PLEASE_ENTER_YOUR_TOKEN_HERE`
+    - `export GITHUB_PAT=PLEASE_ENTER_YOUR_TOKEN_HERE`
 1. Run the script to build the docker image
     - ⚠️ **Warning** Perform this command from the repository root directory
     - `sh continuous_integration/build_docker_images.sh`

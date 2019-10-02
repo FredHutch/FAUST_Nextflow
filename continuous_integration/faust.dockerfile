@@ -2,7 +2,7 @@ FROM r-base:3.6.1
 
 # Configure the environment to use the configured personal access token with GitHub
 # Sets default to REDACTED
-ARG CI_GITHUB_PAT=THE_GITHUB_PERSONAL_ACCESS_TOKEN_WAS_NOT_SET
+ARG CI_GITHUB_PAT=GITHUB_PAT_WAS_NOT_SET
 ENV GITHUB_PAT=${CI_GITHUB_PAT}
 
 # Install R `devtools` external dependencies
