@@ -34,8 +34,8 @@ process initialize_faust_data {
 
         library(faust)
         faust:::nf_step_00_initialize_faust_data(gatingSetPath="${input_directory}",
-                                                 experimentalUnit="$params.experimental_unit",
-                                                 imputationHierarchy="$params.imputation_hierarchy")
+                                                 experimentalUnit="${params.experimental_unit}",
+                                                 imputationHierarchy="${params.imputation_hierarchy}")
         """
 }
 
@@ -61,7 +61,7 @@ process extract_data {
         library(faust)
         faust:::nf_step_01_extract_data_from_gs(gatingSetPath="${input_directory}",
                                                 activeChannelsPath="${active_channels}",
-                                                startingCellPop="$params.starting_cell_pop")
+                                                startingCellPop="${params.starting_cell_pop}")
         """
 }
 
@@ -157,10 +157,10 @@ process grow_forest {
         """
         #!/usr/bin/env Rscript
         
-        faust:::nf_step_04_grow_forest_for_eu(activeChannelsPath="$active_channels",
+        faust:::nf_step_04_grow_forest_for_eu(activeChannelsPath="${active_channels}",
                                               experimentalUnit="${key}",
-                                              startingCellPop="$params.starting_cell_pop",
-                                              threadNumber=$params.thread_number)
+                                              startingCellPop="${params.starting_cell_pop}",
+                                              threadNumber=${params.thread_number})
         """
 }
 
@@ -256,8 +256,8 @@ process plot_score_lines {
         """
         #!/usr/bin/env Rscript
 
-        faust:::nf_step_08_plot_score_lines(depthScoreThreshold=$params.depth_score_threshold,
-                                            selectionQuantile=$params.selection_quantile)
+        faust:::nf_step_08_plot_score_lines(depthScoreThreshold=${params.depth_score_threshold},
+                                            selectionQuantile=${params.selection_quantile})
         """
 }
 
@@ -331,9 +331,9 @@ process discover_populations {
         #!/usr/bin/env Rscript
 
         faust:::nf_step_11_discover_populations_for_unit(experimentalUnit="${key}",
-                                                         startingCellPop="$params.starting_cell_pop", 
-                                                         nameOccuranceNum=$params.name_occurrence_number,
-                                                         threadNumber=$params.thread_number)
+                                                         startingCellPop="${params.starting_cell_pop}",
+                                                         nameOccuranceNum=${params.name_occurrence_number},
+                                                         threadNumber=${params.thread_number})
         """
 }
 
@@ -359,7 +359,7 @@ process gate_clusters {
         #!/usr/bin/env Rscript
 
         faust:::nf_step_12_gate_clusters(startingCellPop="${params.starting_cell_pop}",
-                                         nameOccuranceNum=$params.name_occurrence_number)
+                                         nameOccuranceNum=${params.name_occurrence_number})
         """
 }
 
