@@ -6,8 +6,10 @@ ARG CI_GITHUB_PAT=GITHUB_PAT_WAS_NOT_SET
 ENV GITHUB_PAT=${CI_GITHUB_PAT}
 
 # Install R `devtools` external dependencies
+# autoconf - required for R Protobuf
 RUN apt-get update \
-    && apt-get install --yes libcurl4-openssl-dev \
+    && apt-get install --yes autoconf \
+                             libcurl4-openssl-dev \
                              libssl-dev \
                              libxml2-dev \
                              python3.7 \
@@ -38,7 +40,7 @@ RUN R -e "devtools::install_github('RGLab/ncdfFlow', ref='trunk')"
 RUN R -e "devtools::install_github('RGLab/flowWorkspace', ref='trunk')"
 RUN R -e "devtools::install_github('RGLab/ggcyto', ref='trunk')"
 
-RUN R -e "devtools::install_github('FredHutch/scampDev')"
+RUN R -e "devtools::install_github('FredHutch/scampDev', auth_token='$GITHUB_PAT')"
 RUN R -e "install.packages(c('cowplot', 'viridis', 'tidyr', 'ggridges'))"
 
 COPY faust_r_lib faust
