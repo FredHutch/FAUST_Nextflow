@@ -265,7 +265,8 @@ nf_step_06_reconcile_annotation_boundaries <- function(
     }
     outList <- readRDS(paste0(startingCellPop,"_resListPrep.rds"))
     if (length(selectionList) > 0) {
-        selectedChannels <- names(resListPrep)
+        #selectedChannels <- names(resListPrep)
+        selectedChannels <- names(outList)
         supervisedChannels <- names(selectionList)
         if (length(setdiff(supervisedChannels,selectedChannels))) {
             print("The following unselected channels (by depth score) are detected.")
