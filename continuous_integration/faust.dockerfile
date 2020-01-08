@@ -19,29 +19,30 @@ RUN apt-get update \
 
 
 # Install `devtools` R dependencies
-RUN R -e "install.packages('curl', repos='https://cloud.r-project.org/')"
-RUN R -e "install.packages('xml2', repos='https://cloud.r-project.org/')"
+RUN R -e "install.packages('curl', repos='https://cloud.r-project.org/', version='4.3')"
+RUN R -e "install.packages('xml2', repos='https://cloud.r-project.org/', version='1.2.2')"
 # Install `devtools`
-RUN R -e "install.packages('devtools', repos='https://cloud.r-project.org/')"
+RUN R -e "install.packages('devtools', repos='https://cloud.r-project.org/', version='2.2.1')"
 
 # Install `FAUST` dependencies
 # Install BiocManager
-RUN R -e "install.packages(c('BiocManager'), repos='https://cloud.r-project.org/')"
-RUN R -e "BiocManager::install('Biobase', update = FALSE)"
-RUN R -e "BiocManager::install('flowWorkspaceData', update = FALSE)"
+RUN R -e "install.packages(c('BiocManager'), repos='https://cloud.r-project.org/', version='1.30.10')"
+RUN R -e "BiocManager::install('Biobase', version='3.10')"
+RUN R -e "BiocManager::install('RProtoBufLib', version='3.10')"
+RUN R -e "BiocManager::install('cytolib', version='3.10')"
+RUN R -e "BiocManager::install('flowCore', version='3.10')"
+RUN R -e "BiocManager::install('ncdfFlow', version='3.10')"
+RUN R -e "BiocManager::install('flowWorkspace', version='3.10')"
+RUN R -e "BiocManager::install('ggcyto', version='3.10')"
 
 # Set dev tools installation to use GitHub personal access token that was passed in
 RUN R -e "usethis::browse_github_pat()"
 
-RUN R -e "devtools::install_github('RGLab/RProtoBufLib', ref='trunk')"
-RUN R -e "devtools::install_github('RGLab/cytolib', ref='trunk')"
-RUN R -e "devtools::install_github('RGLab/flowCore', ref='trunk')"
-RUN R -e "devtools::install_github('RGLab/ncdfFlow', ref='trunk')"
-RUN R -e "devtools::install_github('RGLab/flowWorkspace', ref='trunk')"
-RUN R -e "devtools::install_github('RGLab/ggcyto', ref='trunk')"
-
 RUN R -e "devtools::install_github('FredHutch/scampDev', auth_token='$GITHUB_PAT')"
-RUN R -e "install.packages(c('cowplot', 'viridis', 'tidyr', 'ggridges'))"
+RUN R -e "install.packages('cowplot', repos='https://cloud.r-project.org/', version='1.0.0')"
+RUN R -e "install.packages('viridis', repos='https://cloud.r-project.org/', version='0.5.1')"
+RUN R -e "install.packages('tidyr', repos='https://cloud.r-project.org/', version='1.0.0')"
+RUN R -e "install.packages('ggridges', repos='https://cloud.r-project.org/', version='0.5.1')"
 
 COPY faust_r_lib faust
 RUN R CMD INSTALL faust  --preclean
