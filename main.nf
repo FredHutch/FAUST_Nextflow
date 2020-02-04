@@ -2,17 +2,19 @@
 
 
 // NextFlow Input
+params.input_gating_set_directory = "$baseDir/input"
 params.active_channels_path = "$baseDir/helper_files/active_channels.rds"
-params.annotations_approved = "TRUE"
 params.channel_bounds_path = "$baseDir/helper_files/channel_bounds.rds"
+params.supervised_list_path = "$baseDir/helper_files/supervised_list.rds"
+
+// FAUST Specific Tuninig
+params.annotations_approved = "TRUE"
 params.depth_score_threshold = 0.05
 params.experimental_unit = "name"
 params.imputation_hierarchy= "flatHierarchy"
-params.input_gating_set_directory = "$baseDir/input"
-params.name_occurrence_number=1 
-params.starting_cell_pop = "Live"
+params.name_occurrence_number=1
+params.starting_cell_pop = "root"
 params.selection_quantile = 1
-params.supervised_list_path = "$baseDir/helper_files/supervised_list.rds"
 params.thread_number = 0
 
 // -----------------------------------------------------------------------------
@@ -20,7 +22,8 @@ params.thread_number = 0
 // -----------------------------------------------------------------------------
 process initialize_faust_data {
     // [ directives ]
-    container "rglab/faust-nextflow:0.0.1"
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "high_memory"
 
     input:
         file input_directory from file(params.input_gating_set_directory, type: "dir")
@@ -31,7 +34,6 @@ process initialize_faust_data {
     script:
         """
         #!/usr/bin/env Rscript
-
         library(faust)
         faust:::nf_step_00_initialize_faust_data(gatingSetPath="${input_directory}",
                                                  experimentalUnit="${params.experimental_unit}",
@@ -44,7 +46,8 @@ process initialize_faust_data {
 // -----------------------------------------------------------------------------
 process extract_data {
     // [ directives ]
-    container "rglab/faust-nextflow:0.0.1"
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "high_memory"
 
     input:
         set file(input_directory), file(analysis_map) from STEP_01_CHANNEL
@@ -70,7 +73,8 @@ process extract_data {
 // -----------------------------------------------------------------------------
 process make_restriction_matrices {
     // [ directives ]
-    container "rglab/faust-nextflow:0.0.1"
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "high_memory"
 
     input:
         set file(input_directory), file(analysis_map) from  STEP_02_GS
@@ -96,7 +100,8 @@ process make_restriction_matrices {
 // -----------------------------------------------------------------------------
 process make_experimental_units {
     // [ directives ]
-    container "rglab/faust-nextflow:0.0.1"
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
 
     input:
         set file(input_directory), file(analysis_map),file(channel_bounds_used_by_faust),file(restriction_matrix) from STEP_03_CHANNEL
@@ -140,7 +145,8 @@ STEP_04_LEVEL_RES_KEY_CHANNEL.join(STEP_04_LEVEL_LOOKUP_KEY_CHANNEL).join(STEP_0
 
 process grow_forest {
     // [ directives ]
-    container "rglab/faust-nextflow:0.0.1"
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "large_cpu"
 
     input:
         file active_channels from file("${params.active_channels_path}")
@@ -170,7 +176,8 @@ process grow_forest {
 supervised_list_ch = Channel.fromPath("${params.supervised_list_path}")
 process select_channels {
     // [ directives ]
-    container "rglab/faust-nextflow:0.0.1"
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
 
     input:
         file analysis_map from STEP_05_ANALYSIS_MAP_CHANNEL
@@ -196,7 +203,8 @@ process select_channels {
 // -----------------------------------------------------------------------------
 process reconcile_annotation_boundaries {
     // [ directives ]
-    container "rglab/faust-nextflow:0.0.1"
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
 
     input: 
         set file(supervised_list), file(analysis_map), file(score_mat), file(depth_mat), file(initselc) from STEP_06_CONSTRUCTED_FILES_CHANNEL
@@ -218,8 +226,9 @@ process reconcile_annotation_boundaries {
 // step 07
 // -----------------------------------------------------------------------------
 process make_annotation_matrices {
-
-    container "rglab/faust-nextflow:0.0.1"
+    // [ directives ]
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
 
     input:
         set file(analysis_map),file(force_list),file(raw_gate_list), file(res_list_prep),file(selected_channels),file(res_list),file(possibility_list) from STEP_07_CREATED_FILES
@@ -243,7 +252,9 @@ process make_annotation_matrices {
 // step 08
 // -----------------------------------------------------------------------------
 process plot_score_lines {
-    container "rglab/faust-nextflow:0.0.1"
+    // [ directives ]
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
     
     input:
         file(force_list) from STEP_08_FORCE_LIST_CHANNEL
@@ -265,7 +276,9 @@ process plot_score_lines {
 // step 09
 // -----------------------------------------------------------------------------
 process plot_marker_histograms {
-    container "rglab/faust-nextflow:0.0.1"
+    // [ directives ]
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
     
     input:
         set file(res_list), file(analysis_map),file(selected_channels) from STEP_09_FILES
@@ -293,7 +306,9 @@ STEP_10_SAMPLE_TUPLE_CHANNEL = STEP_10_SAMPLE_CHANNEL.flatten().map{
 }
 STEP_10_DATA_CHANNEL = STEP_10_SAMPLE_TUPLE_CHANNEL.combine(STEP_10_FILE_CHANNEL)
 process plot_sample_histograms {
-    container "rglab/faust-nextflow:0.0.1"
+    // [ directives ]
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
 
     input:
         set val(sample_name),file(sample_file),file(analysis_map), file(res_list), file(selected_channels) from STEP_10_DATA_CHANNEL
@@ -315,7 +330,9 @@ process plot_sample_histograms {
 //step 11
 // -----------------------------------------------------------------------------
 process discover_populations {
-    container "rglab/faust-nextflow:0.0.1"
+    // [ directives ]
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "large_cpu"
 
     input:
         set val(key),file(res),file(lookup),file(exprs) from STEP_11_EU_CHANNEL
@@ -341,7 +358,9 @@ process discover_populations {
 //step 12
 // -----------------------------------------------------------------------------
 process gate_clusters {
-    container "rglab/faust-nextflow:0.0.1"
+    // [ directives ]
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
     
     input:
     file(sample_annotation_matrices) from STEP_12_ANNOTATION_MATRICES_CHANNEL.collect()
@@ -368,7 +387,9 @@ process gate_clusters {
 // -----------------------------------------------------------------------------
 SAMPLE_ANN_CH = FAUST_SAMPLE_ANNOTATIONS_CH.flatten().unique().collect()
 process make_count_matrix {
-    container "rglab/faust-nextflow:0.0.1"
+    // [ directives ]
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
 
     input:
         set file(scamp_name_summary), file(scamp_cluster_names), file(selected_channels), file(analysis_map) from STEP_13_CHANNEL
@@ -389,7 +410,9 @@ process make_count_matrix {
 //step 14
 // -----------------------------------------------------------------------------
 process gather_results {
-    container "rglab/faust-nextflow:0.0.1"
+    // [ directives ]
+    container "rglab/faust-nextflow-debug:0.0.1"
+    label "micro_mem_and_cpu"
     publishDir "FAUST_RESULTS"
 
     input:
