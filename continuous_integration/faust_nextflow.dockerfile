@@ -2,16 +2,19 @@ FROM r-base:3.6.1
 
 # Configure the environment to use the configured personal access token with GitHub
 # Sets default to REDACTED
-ARG CI_GITHUB_PAT=GITHUB_PAT_WAS_NOT_SET
+ARG CI_GITHUB_PAT
+RUN test -n "$CI_GITHUB_PAT" || (echo "CI_GITHUB_PAT  not set and is required to build the docker image" && false)
 ENV GITHUB_PAT=${CI_GITHUB_PAT}
 
 # Install R `devtools` external dependencies
 # autoconf - required for R Protobuf
+# procps - required for metric generation in Nextflow, not required for FAUST
 RUN apt-get update \
     && apt-get install --yes autoconf \
                              libcurl4-openssl-dev \
                              libssl-dev \
                              libxml2-dev \
+                             procps \
                              python3.7 \
                              python3-pip \
                              python3-setuptools \
