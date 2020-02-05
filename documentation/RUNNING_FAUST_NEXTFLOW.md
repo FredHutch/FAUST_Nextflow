@@ -2,16 +2,14 @@
 
 This repo contains a `Nextflow` implementation of the `FAUST` statistical method.
 
-`FAUST` will provide automated unsupervised clustering selection within popular data sets such as Flow Cytometry, Mass Cytometry, and is compatible with many other domain specific data sets!
-
-`FAUST` is an amazing new machine learning technique that will help create higher quality analysis of data sets by using brand new techniques likes bootstrapping decision trees without annotations, unsupervised clustering selection, and can scale with respect to desired deployment architecture. [TODO @EGreene please explain better than me]
+`FAUST` is an amazing new technique that will help create higher quality analysis of data sets by [TODO @EGreene please explain better than me]
 
 # Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents**
+**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
 
 -   [Repository Structure](#repository-structure)
 -   [Building](#building)
@@ -21,15 +19,13 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
 
 # Repository Structure
 
-| Name                                                   | Description                                                                                                                                                                            |
-| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [documentation/](documentation/)                       | This is all the documentation for `FAUST Nextflow`                                                                                                                                     |
-| [README.md](README.md)                                 | This the quick-start document for `FAUST Nextflow`                                                                                                                                     |
-| [continuous_integration](continuous_integration/)      | This is the directory that contains all the required files to make `FAUST` Nextflow available for everyone. Users of `FAUST`'s Nextflow implementation should not need to look in here |
-| [main.nf](main.nf)                                     | This is the `Nextflow` script for `FAUST`                                                                                                                                              |
-| [faust_r_lib](faust_r_lib)                             | This is a one off implementation of `FAUST` in order to simplify supporting `Nextflow`                                                                                                 |
-| [aws_batch_nextflow.config](aws_batch_nextflow.config) | This is the configuration file for `FAUST Nextflow` with AWS Batch                                                                                                                     |
-| [local_nextflow.config](local_nextflow.config)         | This is the configuration file for `FAUST Nextflow` with AWS Batch                                                                                                                     |
+| Name                   | Description                                                                                                                                                                            |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| README.md              | This document to explain how to use the `FAUST` `Nextflow` implementation                                                                                                              |
+| continuous_integration | This is the directory that contains all the required files to make `FAUST` Nextflow available for everyone. Users of `FAUST`'s Nextflow implementation should not need to look in here |
+| main.nf                | This is the `Nextflow` script for `FAUST`                                                                                                                                              |
+| faust_r_lib            | This is a one off implementation of `FAUST` in order to simplify supporting `Nextflow`                                                                                                 |
+| nextflow.config        | This is the configuration file for `Nextflow`                                                                                                                                          |
 
 # Building
 

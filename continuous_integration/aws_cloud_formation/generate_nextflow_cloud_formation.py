@@ -5,8 +5,6 @@
 # -------------------------
 # Third-Party Libraries
 # -------------------------
-import pdb
-from troposphere import GetAtt
 from troposphere import Parameter
 from troposphere import Ref
 from troposphere import Template
@@ -14,10 +12,7 @@ from troposphere.batch import ComputeEnvironment
 from troposphere.batch import ComputeEnvironmentOrder
 from troposphere.batch import ComputeResources
 from troposphere.batch import JobQueue
-from troposphere.batch import LaunchTemplateSpecification
-from troposphere.ec2 import EIP
 from troposphere.ec2 import InternetGateway
-from troposphere.ec2 import NatGateway
 from troposphere.ec2 import Route
 from troposphere.ec2 import RouteTable
 from troposphere.ec2 import SecurityGroup
@@ -26,7 +21,6 @@ from troposphere.ec2 import SubnetRouteTableAssociation
 from troposphere.ec2 import VPC
 from troposphere.ec2 import VPCGatewayAttachment
 from troposphere.ec2 import Tag
-from troposphere.ec2 import Tags
 from troposphere.iam import InstanceProfile
 from troposphere.iam import Role
 from troposphere.s3 import Bucket
