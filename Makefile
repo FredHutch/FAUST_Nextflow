@@ -1,3 +1,7 @@
+documentation_table_of_contents:
+	doctoc README.md
+	doctoc documentation
+
 clean:
 	rm -fr .DS_Store	 # Remove mac os files
 	rm -fr .nextflow	 # Remove nextflow working directory

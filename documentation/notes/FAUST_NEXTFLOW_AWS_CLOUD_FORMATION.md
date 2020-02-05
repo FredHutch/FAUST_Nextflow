@@ -1,3 +1,22 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Template Candidates](#template-candidates)
+  - [Breakdown of Resources](#breakdown-of-resources)
+  - [AWS Specific](#aws-specific)
+  - [Alternate](#alternate)
+- [Required Architecture](#required-architecture)
+  - [Required Settings to Run Nextflow](#required-settings-to-run-nextflow)
+  - [AMI](#ami)
+  - [User](#user)
+  - [Batch](#batch)
+  - [Job Queue](#job-queue)
+  - [Compute Environment](#compute-environment)
+- [S3](#s3)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Template Candidates
 
 ## Breakdown of Resources
