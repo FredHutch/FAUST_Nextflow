@@ -1,13 +1,16 @@
+# Overview
+
+This document explains how to use the `AWS CloudFormation` file in this repository to create your own `AWS` architecture that will support running `FAUST Nextflow`
+
 # Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
-- [Possible Errors](#possible-errors)
-  - [Stack Creation Failed - AWS S3 Bucket Already Exists](#stack-creation-failed---aws-s3-bucket-already-exists)
-    - [Problem](#problem)
-    - [Solution](#solution)
+-   [Possible Errors](#possible-errors)
+    -   [Stack Creation Failed - AWS S3 Bucket Already Exists](#stack-creation-failed---aws-s3-bucket-already-exists)
+        -   [Problem](#problem)
+        -   [Solution](#solution)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

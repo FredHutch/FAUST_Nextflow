@@ -1,7 +1,7 @@
 FROM r-base:3.6.1
 
 # Configure the environment to use the configured personal access token with GitHub
-# Sets default to REDACTED
+# Errors out if the argument is not available
 ARG CI_GITHUB_PAT
 RUN test -n "$CI_GITHUB_PAT" || (echo "CI_GITHUB_PAT  not set and is required to build the docker image" && false)
 ENV GITHUB_PAT=${CI_GITHUB_PAT}
