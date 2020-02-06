@@ -38,7 +38,7 @@ This document covers the process for building the `Nextflow` `Docker` image
 
 In order to `deploy` the `Docker` image that is created you are required to have access to the repository being published to.
 
-The current repository being published to is `https://hub.docker.com/orgs/rglab`. Please make sure you have access to this.
+The current repository being published to is [RGLab on DockerHub](https://hub.docker.com/orgs/rglab). Please make sure you have access to this.
 
 # Process
 
