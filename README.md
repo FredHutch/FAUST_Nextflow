@@ -21,7 +21,16 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
 
 -   [Repository Structure](#repository-structure)
 -   [Quick Start - Local Execution](#quick-start---local-execution)
+    -   [Create the FAUST input requirements](#create-the-faust-input-requirements)
+    -   [Run `FAUST` using the local configurations](#run-faust-using-the-local-configurations)
+    -   [Wait for processing to complete](#wait-for-processing-to-complete)
+    -   [Collect results from the `FAUST_RESULTS` directory](#collect-results-from-the-faust_results-directory)
 -   [Quick Start - Amazon Web Services(AWS) Execution](#quick-start---amazon-web-servicesaws-execution)
+    -   [Create the FAUST input requirements](#create-the-faust-input-requirements-1)
+    -   [Create AWS Infrastructure](#create-aws-infrastructure)
+    -   [Run `FAUST` using the AWS configurations](#run-faust-using-the-aws-configurations)
+    -   [Wait for processing to complete](#wait-for-processing-to-complete-1)
+    -   [Collect results from the `FAUST_RESULTS` directory](#collect-results-from-the-faust_results-directory-1)
 -   [Additional Documentation](#additional-documentation)
     -   [User Oriented Information](#user-oriented-information)
     -   [Developer Oriented Information](#developer-oriented-information)
@@ -45,120 +54,138 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
 
 # Quick Start - Local Execution
 
-1. Create the FAUST input requirements
-    1. Create the input gating set
-        1. First get a data set that you'd like to process
-        1. Pre-process this data set
-            - Convert it into a gating set
-            - Gate out doublets
-            - Gate out live/dead cells
-        1. Convert this gating set into an `R` `FlowWorkspace` gating set and save it
-        1. Save the gating set to a directory
-    1. Create an `active channels file`
-        - See the [Inputs and Outputs `active channels file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md##active-channels-file) section for more information
-    1. Create a `channel bounds file`
-        - See the [Inputs and Outputs `channel bounds file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#channel-bounds-file) section for more information
-    1. Create a `supervised list file`
-        - See the [Inputs and Outputs `supervised list file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#supervised-list-file) section for more information
-1. Run `FAUST` using the local configurations
-    - ⚠️ **Warning** Perform this command from the repository root directory
-    - Template Example
-        - ```bash
-          ./nextflow run main.nf -c "./local_nextflow.config" \
-                                  --active_channels_path [PATH_TO_ACTIVE_CHANNELS_RDS_FILE] \
-                                  --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
-                                  --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
-                                  --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES]
-          ```
-    - Actual Example
-        - ```bash
-          ./nextflow run main.nf -c "./local_nextflow.config" \
-                                  --active_channels_path ~/Desktop/nextflow_testing/helper_files/active_channels.rds \
-                                  --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
-                                  --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
-                                  --input_gating_set_directory ~/Desktop/nextflow_testing/dataset
-          ```
-1. Wait for processing to complete
-1. Collect results from the `FAUST_RESULTS` directory
-    - This is generated at the end of the `FAUST Nextflow`'s execution
+## Create the FAUST input requirements
+
+1. Create the input gating set
+    1. First get a data set that you'd like to process
+    1. Pre-process this data set
+        - Convert it into a gating set
+        - Gate out doublets
+        - Gate out live/dead cells
+    1. Convert this gating set into an `R` `FlowWorkspace` gating set and save it
+    1. Save the gating set to a directory
+1. Create an `active channels file`
+    - See the [Inputs and Outputs `active channels file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md##active-channels-file) section for more information
+1. Create a `channel bounds file`
+    - See the [Inputs and Outputs `channel bounds file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#channel-bounds-file) section for more information
+1. Create a `supervised list file`
+    - See the [Inputs and Outputs `supervised list file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#supervised-list-file) section for more information
+
+## Run `FAUST` using the local configurations
+
+-   ⚠️ **Warning** Perform this command from the repository root directory
+-   Template Example
+    -   ```bash
+        ./nextflow run main.nf -c "./local_nextflow.config" \
+                                --active_channels_path [PATH_TO_ACTIVE_CHANNELS_RDS_FILE] \
+                                --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
+                                --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
+                                --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES]
+        ```
+-   Actual Example
+    -   ```bash
+        ./nextflow run main.nf -c "./local_nextflow.config" \
+                                --active_channels_path ~/Desktop/nextflow_testing/helper_files/active_channels.rds \
+                                --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
+                                --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
+                                --input_gating_set_directory ~/Desktop/nextflow_testing/dataset
+        ```
+
+## Wait for processing to complete
+
+`FAUST Nextflow` will be processing at this point, please wait for it to complete.
+
+## Collect results from the `FAUST_RESULTS` directory
+
+-   This is generated at the end of the `FAUST Nextflow`'s execution
 
 # Quick Start - Amazon Web Services(AWS) Execution
 
 This is how you can run `FAUST Nextflow` using AWS Resources
 
-1. Create the FAUST input requirements
-    1. Create the input gating set
-        1. First get a data set that you'd like to process
-        1. Pre-process this data set
-            - Convert it into a gating set
-            - Gate out doublets
-            - Gate out live/dead cells
-        1. Convert this gating set into an `R` `FlowWorkspace` gating set and save it
-        1. Save the gating set to a directory
-    1. Create an `active channels file`
-        - See the [Inputs and Outputs `active channels file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md##active-channels-file) section for more information
-    1. Create a `channel bounds file`
-        - See the [Inputs and Outputs `channel bounds file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#channel-bounds-file) section for more information
-    1. Create a `supervised list file`
-        - See the [Inputs and Outputs `supervised list file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#supervised-list-file) section for more information
-1. Create AWS Infrastructure
-    1. Make sure you have an aws account
-    1. [Log into your AWS account via the AWS console](https://console.aws.amazon.com/)
-    1. Go to the `CloudFormation` service
-        - ![aws_console_landing_page](documentation/images/create_cloud_formation/aws_console_landing_page.png)
-        - ![aws_services_dropdown_navigate_to_cloud_formation](documentation/images/create_cloud_formation/aws_services_dropdown_navigate_to_cloud_formation.png)
-    1. Select `Create Stack`
-        - ![aws_cloud_formation_landing_page_create_stack](documentation/images/create_cloud_formation/aws_cloud_formation_landing_page_create_stack.png)
-        - ![aws_cloud_formation_landing_page](documentation/images/create_cloud_formation/aws_cloud_formation_landing_page.png)
-    1. Select template
-        - For `Prerequisite - Prepare template`
-          Select `Template is ready`
-        - For `Specify template`
-            - Select `Upload a template file`
-            - Select `Choose file` and use the [nextflow_cloud_formation.yml](continuous_integration/aws_cloud_formation/nextflow_cloud_formation.yml) in this repository
-        - Then select `Next`
-        - ![aws_cloud_formation_create_stack_select_template](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_template.png)
-    1. Set any desired parameters for the cloud formation
-        - Using the default settings is suggested for the quick-start
-        - Please see [NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md](documentation/NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md) for a detailed explanation on how to use these
-        - ![aws_cloud_formation_create_stack_select_parameters](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_parameters.png)
-    1. Set any desired stack options
-        - ![aws_cloud_formation_create_stack_select_options](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_options.png)
-    1. Create the stack
-        - ![aws_cloud_formation_create_stack_select_create](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_create.png)
-    1. Wait for the stack to complete
-        - If you encounter any issues or errors, see the [HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md Possible Errors Section](documentation/HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md#Possible-Errors) for more information
-        - ![aws_cloud_formation_stack_creating](documentation/images/create_cloud_formation/aws_cloud_formation_stack_creating.png)
-        - ![aws_cloud_formation_create_stack_success](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_success.png)
-1. Run `FAUST` using the AWS configurations
-    - ⚠️ **Warning** Perform this command from the repository root directory
-    - Template Example
-        - ```bash
-            export AWS_ACCESS_KEY_ID=[REDACTED]
-            export AWS_SECRET_ACCESS_KEY=[REDACTED]
-            ./nextflow run main.nf -c "./aws_batch_nextflow.config" \
-                                    --active_channels_path [PATH_TO_ACTIVE_CHANNELS_RDS_FILE] \
-                                    --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
-                                    --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
-                                    --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES] \
-                                    --aws_batch_queue [REDACTED] \
-                                    -bucket-dir s3://[REDACTED]
-          ```
-    - Actual Example
-        - ```bash
-            export AWS_ACCESS_KEY_ID=[REDACTED]
-            export AWS_SECRET_ACCESS_KEY=[REDACTED]
-            ./nextflow run main.nf -c "./aws_batch_nextflow.config" \
-                                    --active_channels_path ~/Desktop/nextflow_testing/helper_files/active_channels.rds \
-                                    --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
-                                    --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
-                                    --input_gating_set_directory ~/Desktop/nextflow_testing/dataset \
-                                    --aws_batch_queue example_queue \
-                                    -bucket-dir s3://example_bucket
-          ```
-1. Wait for processing to complete
-1. Collect results from the `FAUST_RESULTS` directory
-    - This is generated at the end of the `FAUST Nextflow`'s execution
+## Create the FAUST input requirements
+
+1. Create the input gating set
+    1. First get a data set that you'd like to process
+    1. Pre-process this data set
+        - Convert it into a gating set
+        - Gate out doublets
+        - Gate out live/dead cells
+    1. Convert this gating set into an `R` `FlowWorkspace` gating set and save it
+    1. Save the gating set to a directory
+1. Create an `active channels file`
+    - See the [Inputs and Outputs `active channels file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md##active-channels-file) section for more information
+1. Create a `channel bounds file`
+    - See the [Inputs and Outputs `channel bounds file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#channel-bounds-file) section for more information
+1. Create a `supervised list file`
+    - See the [Inputs and Outputs `supervised list file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#supervised-list-file) section for more information
+
+## Create AWS Infrastructure
+
+1. Make sure you have an aws account
+1. [Log into your AWS account via the AWS console](https://console.aws.amazon.com/)
+1. Go to the `CloudFormation` service
+    - ![aws_console_landing_page](documentation/images/create_cloud_formation/aws_console_landing_page.png)
+    - ![aws_services_dropdown_navigate_to_cloud_formation](documentation/images/create_cloud_formation/aws_services_dropdown_navigate_to_cloud_formation.png)
+1. Select `Create Stack`
+    - ![aws_cloud_formation_landing_page_create_stack](documentation/images/create_cloud_formation/aws_cloud_formation_landing_page_create_stack.png)
+    - ![aws_cloud_formation_landing_page](documentation/images/create_cloud_formation/aws_cloud_formation_landing_page.png)
+1. Select template
+    - For `Prerequisite - Prepare template`
+      Select `Template is ready`
+    - For `Specify template`
+        - Select `Upload a template file`
+        - Select `Choose file` and use the [nextflow_cloud_formation.yml](continuous_integration/aws_cloud_formation/nextflow_cloud_formation.yml) in this repository
+    - Then select `Next`
+    - ![aws_cloud_formation_create_stack_select_template](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_template.png)
+1. Set any desired parameters for the cloud formation
+    - Using the default settings is suggested for the quick-start
+    - Please see [NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md](documentation/NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md) for a detailed explanation on how to use these
+    - ![aws_cloud_formation_create_stack_select_parameters](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_parameters.png)
+1. Set any desired stack options
+    - ![aws_cloud_formation_create_stack_select_options](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_options.png)
+1. Create the stack
+    - ![aws_cloud_formation_create_stack_select_create](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_create.png)
+1. Wait for the stack to complete
+    - If you encounter any issues or errors, see the [HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md Possible Errors Section](documentation/HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md#Possible-Errors) for more information
+    - ![aws_cloud_formation_stack_creating](documentation/images/create_cloud_formation/aws_cloud_formation_stack_creating.png)
+    - ![aws_cloud_formation_create_stack_success](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_success.png)
+
+## Run `FAUST` using the AWS configurations
+
+-   ⚠️ **Warning** Perform this command from the repository root directory
+-   Template Example
+    -   ```bash
+          export AWS_ACCESS_KEY_ID=[REDACTED]
+          export AWS_SECRET_ACCESS_KEY=[REDACTED]
+          ./nextflow run main.nf -c "./aws_batch_nextflow.config" \
+                                  --active_channels_path [PATH_TO_ACTIVE_CHANNELS_RDS_FILE] \
+                                  --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
+                                  --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
+                                  --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES] \
+                                  --aws_batch_queue [REDACTED] \
+                                  -bucket-dir s3://[REDACTED]
+        ```
+-   Actual Example
+    -   ```bash
+          export AWS_ACCESS_KEY_ID=[REDACTED]
+          export AWS_SECRET_ACCESS_KEY=[REDACTED]
+          ./nextflow run main.nf -c "./aws_batch_nextflow.config" \
+                                  --active_channels_path ~/Desktop/nextflow_testing/helper_files/active_channels.rds \
+                                  --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
+                                  --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
+                                  --input_gating_set_directory ~/Desktop/nextflow_testing/dataset \
+                                  --aws_batch_queue example_queue \
+                                  -bucket-dir s3://example_bucket
+        ```
+
+## Wait for processing to complete
+
+`FAUST Nextflow` will be processing at this point, please wait for it to complete.
+
+## Collect results from the `FAUST_RESULTS` directory
+
+-   This is generated at the end of the `FAUST Nextflow`'s execution
 
 # Additional Documentation
 
@@ -172,14 +199,14 @@ You may be interested in reading more about `FAUST` or `FAUST Nextflow`
 | FAUST_Nextflow | [NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md](documentation/NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md) | A guide to explain the parameters available when creating `AWS` Infrastructure using the `AWS CloudFormation` file |
 | FAUST_Nextflow | [RUNNING_FAUST_NEXTFLOW.md](documentation/RUNNING_FAUST_NEXTFLOW.md)                                           | A guide on how to run `FAUST Nextflow`                                                                             |
 | FAUST_Nextflow | [FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md)                     | A guide to explain all the knobs and levers for using the `FAUST Nextflow` pipeline                                |
-| FAUST_Nextflow | [HOW_TO_GET_FAUST_NEXTFLOW_RESULTS.md](documentation/HOW_TO_GET_FAUST_NEXTFLOW_RESULTS.md)                     | A guide on how to the `FAUST Nextflow` results and potential next steps to take                                    |
+| FAUST_Nextflow | [HOW_TO_GET_FAUST_NEXTFLOW_RESULTS.md](documentation/HOW_TO_GET_FAUST_NEXTFLOW_RESULTS.md)                     | A guide on how to use the `FAUST Nextflow` results and potential next steps to take                                |
 
 ## Developer Oriented Information
 
 | Product        | Document                                                                                                               | Description                                                                                                                          |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| FAUST_Nextflow | [HOW_TO_CREATE_THE_FAUST_NEXTFLOW_DOCKER_IMAGE.md](documentation/HOW_TO_CREATE_THE_FAUST_NEXTFLOW_DOCKER_IMAGE.md)     | A guide for creating the `Docker` image that `Nextflow` needs to run `FAUST`                                                         |
-| FAUST_Nextflow | [HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md](documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md)             | A guide for creating the correct architecture in `AWS` for `Nextflow` to run                                                         |
-| FAUST_Nextflow | [HOW_TO_CONFIGURE_NEXTFLOW_FOR_AWS.md](documentation/HOW_TO_CONFIGURE_NEXTFLOW_FOR_AWS.md)                             | A guide explaining how the `Nextflow` has been configured for `AWS`                                                                  |
+| FAUST_Nextflow | [HOW_TO_CREATE_THE_FAUST_NEXTFLOW_DOCKER_IMAGE.md](documentation/HOW_TO_CREATE_THE_FAUST_NEXTFLOW_DOCKER_IMAGE.md)     | A guide to explain how to create the `Docker` image that `Nextflow` needs to run `FAUST`                                             |
+| FAUST_Nextflow | [HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md](documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md)             | A guide to explain how to create the correct architecture in `AWS` for `Nextflow` to run                                             |
+| FAUST_Nextflow | [HOW_TO_CONFIGURE_NEXTFLOW_FOR_AWS.md](documentation/HOW_TO_CONFIGURE_NEXTFLOW_FOR_AWS.md)                             | A guide to explain how the `Nextflow` has been configured for `AWS`                                                                  |
 | FAUST_Nextflow | [HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md](documentation/HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md) | A guide to explain how to use a provided `AWS CloudFormation` file to create the required `AWS` architecture to run `FAUST Nextflow` |
 | FAUST_Nextflow | [NEXTFLOW_GOTCHAS.md](documentation/NEXTFLOW_GOTCHAS.md)                                                               | A guide covering some unexpected functionality when working with `Nextflow`                                                          |
