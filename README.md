@@ -67,11 +67,11 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
     1. Convert this gating set into an `R` `FlowWorkspace` gating set and save it
     1. Save the gating set to a directory
 1. Create an `active channels file`
-    - See the [Inputs and Outputs `active channels file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md##active-channels-file) section for more information
+    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `active channels file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md##active-channels-file) section for more information
 1. Create a `channel bounds file`
-    - See the [Inputs and Outputs `channel bounds file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#channel-bounds-file) section for more information
+    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `channel bounds file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md#channel-bounds-file) section for more information
 1. Create a `supervised list file`
-    - See the [Inputs and Outputs `supervised list file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#supervised-list-file) section for more information
+    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `supervised list file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md#supervised-list-file) section for more information
 
 ## Run `FAUST` using the local configurations
 
@@ -99,7 +99,7 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
 
 ## Collect results from the `FAUST_RESULTS` directory
 
--   This is generated at the end of the `FAUST Nextflow`'s execution
+This is generated at the end of the `FAUST Nextflow`'s execution
 
 # Quick Start - Amazon Web Services(AWS) Execution
 
@@ -116,11 +116,11 @@ This is how you can run `FAUST Nextflow` using AWS Resources
     1. Convert this gating set into an `R` `FlowWorkspace` gating set and save it
     1. Save the gating set to a directory
 1. Create an `active channels file`
-    - See the [Inputs and Outputs `active channels file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md##active-channels-file) section for more information
+    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `active channels file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md##active-channels-file) section for more information
 1. Create a `channel bounds file`
-    - See the [Inputs and Outputs `channel bounds file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#channel-bounds-file) section for more information
+    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `channel bounds file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md#channel-bounds-file) section for more information
 1. Create a `supervised list file`
-    - See the [Inputs and Outputs `supervised list file`](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md#supervised-list-file) section for more information
+    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `supervised list file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md#supervised-list-file) section for more information
 
 ## Create AWS Infrastructure
 
@@ -142,14 +142,14 @@ This is how you can run `FAUST Nextflow` using AWS Resources
     - ![aws_cloud_formation_create_stack_select_template](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_template.png)
 1. Set any desired parameters for the cloud formation
     - Using the default settings is suggested for the quick-start
-    - Please see [NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md](documentation/NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md) for a detailed explanation on how to use these
+    - Please see [documentation/HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md](documentation/documentation/HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md) for a detailed explanation on how to use these
     - ![aws_cloud_formation_create_stack_select_parameters](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_parameters.png)
 1. Set any desired stack options
     - ![aws_cloud_formation_create_stack_select_options](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_options.png)
 1. Create the stack
     - ![aws_cloud_formation_create_stack_select_create](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_create.png)
 1. Wait for the stack to complete
-    - If you encounter any issues or errors, see the [HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md Possible Errors Section](documentation/HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md#Possible-Errors) for more information
+    - If you encounter any issues or errors, see the [documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md Possible Errors Section](documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md#Possible-Errors) for more information
     - ![aws_cloud_formation_stack_creating](documentation/images/create_cloud_formation/aws_cloud_formation_stack_creating.png)
     - ![aws_cloud_formation_create_stack_success](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_success.png)
 
@@ -187,7 +187,7 @@ This is how you can run `FAUST Nextflow` using AWS Resources
 
 ## Collect results from the `FAUST_RESULTS` directory
 
--   This is generated at the end of the `FAUST Nextflow`'s execution
+This is generated at the end of the `FAUST Nextflow`'s execution
 
 # Additional Documentation
 
@@ -195,20 +195,18 @@ You may be interested in reading more about `FAUST` or `FAUST Nextflow`
 
 ## User Oriented Information
 
-| Product        | Document                                                                                                       | Description                                                                                                        |
-| -------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| FAUST          | [FAUST GitHub Repository](https://github.com/rglab/faust)                                                      | This is the implementation of `FAUST` that `FAUST Nextflow` uses                                                   |
-| FAUST_Nextflow | [NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md](documentation/NEXTFLOW_CLOUD_FORMATION_INPUTS_AND_OUTPUTS.md) | A guide to explain the parameters available when creating `AWS` Infrastructure using the `AWS CloudFormation` file |
-| FAUST_Nextflow | [RUNNING_FAUST_NEXTFLOW.md](documentation/RUNNING_FAUST_NEXTFLOW.md)                                           | A guide on how to run `FAUST Nextflow`                                                                             |
-| FAUST_Nextflow | [FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md](documentation/FAUST_NEXTFLOW_INPUTS_AND_OUTPUTS.md)                     | A guide to explain all the knobs and levers for using the `FAUST Nextflow` pipeline                                |
-| FAUST_Nextflow | [HOW_TO_GET_FAUST_NEXTFLOW_RESULTS.md](documentation/HOW_TO_GET_FAUST_NEXTFLOW_RESULTS.md)                     | A guide on how to use the `FAUST Nextflow` results and potential next steps to take                                |
+| Product        | Document                                                                                                                               | Description                                                                                                                                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Flow Workspace | [Flow Workspace GitHub Repository](https://github.com/RGLab/flowWorkspace)                                                             | This is the `FlowWorkspace` library that contains a [`GatingSet`](https://github.com/RGLab/flowWorkspace/blob/trunk/R/AllClasses.R#L75) data structure. `FAUST` expects the `input_gating_set` parameter to be this data structure saved to disk. |
+| FAUST          | [FAUST GitHub Repository](https://github.com/rglab/faust)                                                                              | This is the implementation of `FAUST` that `FAUST Nextflow` uses                                                                                                                                                                                  |
+| FAUST_Nextflow | [HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md](documentation/documentation/HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md) | A guide to explain creating `AWS` Infrastructure using the `AWS CloudFormation` file                                                                                                                                                              |
+| FAUST_Nextflow | [HOW_TO_USE_FAUST_NEXTFLOW.md](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md)                                                             | A guide to explaing how to run `FAUST Nextflow`                                                                                                                                                                                                   |
 
 ## Developer Oriented Information
 
-| Product        | Document                                                                                                               | Description                                                                                                                          |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| FAUST_Nextflow | [HOW_TO_CREATE_THE_FAUST_NEXTFLOW_DOCKER_IMAGE.md](documentation/HOW_TO_CREATE_THE_FAUST_NEXTFLOW_DOCKER_IMAGE.md)     | A guide to explain how to create the `Docker` image that `Nextflow` needs to run `FAUST`                                             |
-| FAUST_Nextflow | [HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md](documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md)             | A guide to explain how to create the correct architecture in `AWS` for `Nextflow` to run                                             |
-| FAUST_Nextflow | [HOW_TO_CONFIGURE_NEXTFLOW_FOR_AWS.md](documentation/HOW_TO_CONFIGURE_NEXTFLOW_FOR_AWS.md)                             | A guide to explain how the `Nextflow` has been configured for `AWS`                                                                  |
-| FAUST_Nextflow | [HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md](documentation/HOW_TO_CREATE_AWS_NEXTFLOW_CLOUD_FORMATION_FILE.md) | A guide to explain how to use a provided `AWS CloudFormation` file to create the required `AWS` architecture to run `FAUST Nextflow` |
-| FAUST_Nextflow | [NEXTFLOW_GOTCHAS.md](documentation/NEXTFLOW_GOTCHAS.md)                                                               | A guide covering some unexpected functionality when working with `Nextflow`                                                          |
+| Product        | Document                                                                                                                     | Description                                                                                                                            |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| FAUST_Nextflow | [HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md](documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md)                   | A guide to explain how to create the correct architecture in `AWS` for `Nextflow` to run                                               |
+| FAUST_Nextflow | [HOW_TO_BUILD_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md](documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md) | A guide to explain how to use our provided `AWS CloudFormation` file to create the required `AWS` architecture to run `FAUST Nextflow` |
+| FAUST_Nextflow | [HOW_TO_BUILD_THE_FAUST_NEXTFLOW_DOCKER_IMAGE.md](documentation/HOW_TO_BUILD_THE_FAUST_NEXTFLOW_DOCKER_IMAGE.md)             | A guide to explain how to create the `Docker` image that `Nextflow` needs to run `FAUST`                                               |
+| FAUST_Nextflow | [NEXTFLOW_GOTCHAS.md](documentation/NEXTFLOW_GOTCHAS.md)                                                                     | A guide covering some unexpected functionality when working with `Nextflow`                                                            |
