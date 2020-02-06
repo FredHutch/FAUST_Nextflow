@@ -21,18 +21,18 @@ This document covers the process for building the `Nextflow` `Docker` image
 
 # Tools
 
-| Resource                                                                                             | Resource Type | Description                                                           |
-| ---------------------------------------------------------------------------------------------------- | ------------- | --------------------------------------------------------------------- |
-| [continuous_integration/build_docker_images.sh](continuous_integration/build_docker_images.sh)       | File          | This script is responsible for building the `Docker` image            |
-| [continuous_integration/deploy_docker_images.sh](continuous_integration/deploy_docker_images.sh)     | File          | This script is responsible for deploying the `Docker` image           |
-| [continuous_integration/faust_nextflow.dockerfile](continuous_integration/faust_nextflow.dockerfile) | File          | This is the `Dockerfile` that is used for to build the `Docker` image |
+| Resource                                                                                             | Resource Type | Description                                                       |
+| ---------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------- |
+| [continuous_integration/build_docker_images.sh](continuous_integration/build_docker_images.sh)       | File          | This script is responsible for building the `Docker` image        |
+| [continuous_integration/deploy_docker_images.sh](continuous_integration/deploy_docker_images.sh)     | File          | This script is responsible for deploying the `Docker` image       |
+| [continuous_integration/faust_nextflow.dockerfile](continuous_integration/faust_nextflow.dockerfile) | File          | This is the `Dockerfile` that is used to build the `Docker` image |
 
 # Required Environment Variables
 
-| Environment Variable                  | Expected Value                           | Description                                                                                                                                                                 |
-| ------------------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `FAUST_NEXTFLOW_DOCKER_IMAGE_VERSION` | 0.0.1                                    | This script is responsible for building the `Docker` image                                                                                                                  |
-| `GITHUB_PAT`                          | 11111111111aaaaaaaaaaa22222222222bbbbbbb | Access to the private `scampDev` repository is required to build the `Docker` image. In order to have access to that a GitHub Personal Access Token (PAT) MUST be provided. |
+| Environment Variable                  | Expected Value                           | Description                                                                                                                                                                            |
+| ------------------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FAUST_NEXTFLOW_DOCKER_IMAGE_VERSION` | 0.0.1                                    | This determines the `version` number that the `Docker` image is tagged with, and deployed with. It is important because it will help people target specific implementations of `FAUST` |
+| `GITHUB_PAT`                          | 11111111111aaaaaaaaaaa22222222222bbbbbbb | Access to the private `scampDev` repository is required to build the `Docker` image. In order to have access to that a GitHub Personal Access Token (PAT) MUST be provided.            |
 
 # Required Docker Registry Access
 
@@ -48,6 +48,7 @@ The current repository being published to is `https://hub.docker.com/orgs/rglab`
 1. In a terminal navigate to the `root directory` of the repository
 1. Set the required environment variables
     - `export FAUST_NEXTFLOW_DOCKER_IMAGE_VERSION="0.0.1"`
+        - Ideally, this should match the version of `FAUST` being used
     - `export GITHUB_PAT="11111111111aaaaaaaaaaa22222222222bbbbbbb"`
 1. Build the `Docker` image
     - `sh continuous_integration/build_docker_images.sh`
