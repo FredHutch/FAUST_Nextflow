@@ -21,10 +21,11 @@ This document covers the process for building the `Nextflow` `Docker` image
 
 # Tools
 
-| File                                                                                             | Description                                                 |
-| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
-| [continuous_integration/build_docker_images.sh](continuous_integration/build_docker_images.sh)   | This script is responsible for building the `Docker` image  |
-| [continuous_integration/deploy_docker_images.sh](continuous_integration/deploy_docker_images.sh) | This script is responsible for deploying the `Docker` image |
+| Resource                                                                                             | Resource Type | Description                                                           |
+| ---------------------------------------------------------------------------------------------------- | ------------- | --------------------------------------------------------------------- |
+| [continuous_integration/build_docker_images.sh](continuous_integration/build_docker_images.sh)       | File          | This script is responsible for building the `Docker` image            |
+| [continuous_integration/deploy_docker_images.sh](continuous_integration/deploy_docker_images.sh)     | File          | This script is responsible for deploying the `Docker` image           |
+| [continuous_integration/faust_nextflow.dockerfile](continuous_integration/faust_nextflow.dockerfile) | File          | This is the `Dockerfile` that is used for to build the `Docker` image |
 
 # Required Environment Variables
 
