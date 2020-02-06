@@ -142,7 +142,7 @@ This is how you can run `FAUST Nextflow` using AWS Resources
     - ![aws_cloud_formation_create_stack_select_template](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_template.png)
 1. Set any desired parameters for the cloud formation
     - Using the default settings is suggested for the quick-start
-    - Please see [documentation/HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md](documentation/documentation/HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md) for a detailed explanation on how to use these
+    - Please see [documentation/HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md](documentation/HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md) for a detailed explanation on how to use these
     - ![aws_cloud_formation_create_stack_select_parameters](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_parameters.png)
 1. Set any desired stack options
     - ![aws_cloud_formation_create_stack_select_options](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_options.png)
