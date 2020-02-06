@@ -1,3 +1,5 @@
+![aws_console_landing_page](documentation/images/logos/faust_buds_logo.png)
+
 # Overview
 
 This repo contains a `Nextflow` implementation of the `FAUST` statistical method.
