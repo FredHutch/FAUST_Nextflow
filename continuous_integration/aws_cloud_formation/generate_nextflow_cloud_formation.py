@@ -44,13 +44,11 @@ description = ("This is the FAUST Nextflow Amazon Web Services(AWS) cloud"
 cloud_resource_name_parameter = Parameter(title="CloudResourceName",
                                           Default="faust-nextflow",
                                           Description=("The name to use for all"
-                                                       " resources."),
+                                                       " aws resources creatd."),
                                           Type="String",
                                           MinLength=1,
                                           MaxLength=40,
                                           AllowedPattern="^[a-zA-Z0-9-_]*$")
-# TODO figure out if this should be exposed as a parameter for tagging
-service_tag = "rglab-faust-nextflow"
 
 # Batch - Compute Environment
 batch_compute_environment_min_vcpu_parameter = Parameter(title="BatchComputeEnvironmentMinVCPU",
@@ -79,6 +77,20 @@ batch_job_queue_priority_parameter = Parameter(title="BatchJobQueuePriority",
                                                Default=1,
                                                Type="Number")
 
+# Debugging
+aws_service_tag = Parameter(title="AWSServiceTag",
+                            Default="faust-nextflow",
+                            Description=("This is the tag that will"
+                                         " be assigned to the "
+                                         " different aws Services."
+                                         " It is useful for triaging"
+                                         " debugging issues within"
+                                         " AWS."),
+                            Type="String",
+                            MinLength=1,
+                            MaxLength=40,
+                            AllowedPattern="^[a-zA-Z0-9-_]*$")
+
 # ------------------------------------------------------------------------------
 # Virtual Private Cloud (VPC) Resources
 # ------------------------------------------------------------------------------
@@ -86,7 +98,7 @@ virtual_private_cloud = VPC(title="VPC",
                             CidrBlock="10.0.0.0/16",
                             EnableDnsHostnames=True,
                             Tags=[
-                                Tag("service", service_tag)
+                                Tag("service", Ref(aws_service_tag))
                             ],)
 
 subnet = Subnet(title="Subnet",
@@ -94,13 +106,13 @@ subnet = Subnet(title="Subnet",
                 CidrBlock="10.0.0.0/24",
                 MapPublicIpOnLaunch=True,
                 Tags=[
-                    Tag("service", service_tag)
+                    Tag("service", Ref(aws_service_tag))
                 ],)
 
 internet_gateway = InternetGateway(
     title="InternetGateway",
     Tags=[
-        Tag("service", service_tag)
+        Tag("service", Ref(aws_service_tag))
     ],
 )
 
@@ -114,7 +126,7 @@ route_table = RouteTable(
     title="RouteTable",
     VpcId=Ref(virtual_private_cloud),
     Tags=[
-        Tag("service", service_tag)
+        Tag("service", Ref(aws_service_tag))
     ],
 )
 
@@ -148,7 +160,7 @@ ecs_instance_role = Role(
         "Principal": {"Service": ["ec2.amazonaws.com"]}
     }]},
     Tags=[
-        Tag("service", service_tag)
+        Tag("service", Ref(aws_service_tag))
     ],
 )
 batch_service_role = Role(
@@ -163,7 +175,7 @@ batch_service_role = Role(
         "Principal": {"Service": ["batch.amazonaws.com"]}
     }]},
     Tags=[
-        Tag("service", service_tag)
+        Tag("service", Ref(aws_service_tag))
     ],
 )
 
@@ -177,7 +189,7 @@ security_group = SecurityGroup(title="SecurityGroup",
                                                  " VPC by batch"),
                                VpcId=Ref(virtual_private_cloud),
                                Tags=[
-                                   Tag("service", service_tag)
+                                   Tag("service", Ref(aws_service_tag))
                                ],
                                )
 
@@ -235,6 +247,7 @@ faust_nextflow_template.set_description(description)
 # Parameter
 # ----------------------------------------
 faust_nextflow_template.add_parameter(cloud_resource_name_parameter)
+faust_nextflow_template.add_parameter(aws_service_tag)
 # ---
 faust_nextflow_template.add_parameter(batch_compute_environment_min_vcpu_parameter)
 faust_nextflow_template.add_parameter(batch_compute_environment_desired_vcpu_parameter)

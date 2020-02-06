@@ -9,11 +9,23 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
 
--   [Repository Structure](#repository-structure)
--   [Building](#building)
--   [Running](#running)
+- [Repository Structure](#repository-structure)
+- [Building](#building)
+- [Build the FAUST Docker Image](#build-the-faust-docker-image)
+- [Configurations](#configurations)
+  - [Data Set Pre-processing](#data-set-pre-processing)
+    - [Active Channels File](#active-channels-file)
+    - [Channel Bounds File](#channel-bounds-file)
+    - [Supervised List File](#supervised-list-file)
+  - [AWS Configurations](#aws-configurations)
+- [Running](#running)
+  - [Locally](#locally)
+  - [Command Template](#command-template)
+  - [Command Example](#command-example)
+  - [Using AWS Batch](#using-aws-batch)
+    - [Command Template](#command-template-1)
+    - [Command Example](#command-example-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

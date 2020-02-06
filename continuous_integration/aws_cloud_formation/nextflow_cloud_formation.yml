@@ -3,6 +3,14 @@ Description: This is the FAUST Nextflow Amazon Web Services(AWS) cloud formation
     It will create all the AWS infrastructure required for running the FAUST Nextflow
     script.
 Parameters:
+    AWSServiceTag:
+        AllowedPattern: ^[a-zA-Z0-9-_]*$
+        Default: faust-nextflow
+        Description: This is the tag that will be assigned to the  different aws Services.
+            It is useful for triaging debugging issues within AWS.
+        MaxLength: 40
+        MinLength: 1
+        Type: String
     BatchComputeEnvironmentDesiredVCPU:
         Default: 0
         Type: Number
@@ -25,7 +33,7 @@ Parameters:
     CloudResourceName:
         AllowedPattern: ^[a-zA-Z0-9-_]*$
         Default: faust-nextflow
-        Description: The name to use for all resources.
+        Description: The name to use for all aws resources creatd.
         MaxLength: 40
         MinLength: 1
         Type: String
@@ -45,7 +53,7 @@ Resources:
             Policies: []
             Tags:
                 - Key: service
-                  Value: rglab-faust-nextflow
+                  Value: !Ref "AWSServiceTag"
         Type: AWS::IAM::Role
     ComputeEnvironment:
         Properties:
@@ -83,7 +91,7 @@ Resources:
             Policies: []
             Tags:
                 - Key: service
-                  Value: rglab-faust-nextflow
+                  Value: !Ref "AWSServiceTag"
         Type: AWS::IAM::Role
     IAMInstanceProfilfe:
         Properties:
@@ -94,7 +102,7 @@ Resources:
         Properties:
             Tags:
                 - Key: service
-                  Value: rglab-faust-nextflow
+                  Value: !Ref "AWSServiceTag"
         Type: AWS::EC2::InternetGateway
     InternetGatewayAttachment:
         Properties:
@@ -119,7 +127,7 @@ Resources:
         Properties:
             Tags:
                 - Key: service
-                  Value: rglab-faust-nextflow
+                  Value: !Ref "AWSServiceTag"
             VpcId: !Ref "VPC"
         Type: AWS::EC2::RouteTable
     S3Bucket:
@@ -133,7 +141,7 @@ Resources:
             GroupDescription: EC2 Security Group for instances launched in the VPC by batch
             Tags:
                 - Key: service
-                  Value: rglab-faust-nextflow
+                  Value: !Ref "AWSServiceTag"
             VpcId: !Ref "VPC"
         Type: AWS::EC2::SecurityGroup
     Subnet:
@@ -142,7 +150,7 @@ Resources:
             MapPublicIpOnLaunch: "true"
             Tags:
                 - Key: service
-                  Value: rglab-faust-nextflow
+                  Value: !Ref "AWSServiceTag"
             VpcId: !Ref "VPC"
         Type: AWS::EC2::Subnet
     SubnetRouteTableAssociation:
@@ -156,5 +164,5 @@ Resources:
             EnableDnsHostnames: "true"
             Tags:
                 - Key: service
-                  Value: rglab-faust-nextflow
+                  Value: !Ref "AWSServiceTag"
         Type: AWS::EC2::VPC
