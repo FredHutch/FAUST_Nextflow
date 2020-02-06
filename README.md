@@ -149,7 +149,7 @@ This is how you can run `FAUST Nextflow` using AWS Resources
 1. Create the stack
     - ![aws_cloud_formation_create_stack_select_create](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_select_create.png)
 1. Wait for the stack to complete
-    - If you encounter any issues or errors, see the [documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md Possible Errors Section](documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md#Possible-Errors) for more information
+    - If you encounter any issues or errors, see the [documentation/HOW_TO_USE_THE_NEXTFLOW_AWS_CLOUD_FORMATION_FILE.md `Possible Errors` Section](documentation/HOW_TO_BUILD_THE_NEXTFLOW_AWS_ENVIRONMENT.md#Possible-Errors) for more information
     - ![aws_cloud_formation_stack_creating](documentation/images/create_cloud_formation/aws_cloud_formation_stack_creating.png)
     - ![aws_cloud_formation_create_stack_success](documentation/images/create_cloud_formation/aws_cloud_formation_create_stack_success.png)
 
