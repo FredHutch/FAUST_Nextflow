@@ -10,10 +10,10 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
 
 ## Explain Like I'm 5
 
--   🧰This is repository is a workflow that can be used by a software tool called `Nextflow`.
+-   🧰This repository is a workflow that can be used by a software tool called `Nextflow`.
 -   ⚒️This workflow takes a data set of any size and processes it using a statistical method called `FAUST`.
 -   🔥💯🤩`FAUST` will automatically select interesting groups within the data set and provide files back to tell you about those groups.
--   🔥💯😌`FAUST` will spot groups that humans normally would not see and as a result removes the potential for human error in processing a data set for analysis.
+-   🔥💯😌`FAUST` will identify groups that humans normally would not see, and as a result removes the potential for human error in processing a data set for analysis.
 -   🔥💯💵`FAUST` also removes the overhead of a human having to process a data set, which saves time and money on processing for analysis.
 
 # Table of Contents
