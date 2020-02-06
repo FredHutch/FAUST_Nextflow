@@ -67,7 +67,7 @@ This repo contains a `Nextflow` implementation of the `FAUST` statistical method
     1. Convert this gating set into an `R` `FlowWorkspace` gating set and save it
     1. Save the gating set to a directory
 1. Create an `active channels file`
-    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `active channels file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md##active-channels-file) section for more information
+    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `active channels file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md#active-channels-file) section for more information
 1. Create a `channel bounds file`
     - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `channel bounds file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md#channel-bounds-file) section for more information
 1. Create a `supervised list file`
@@ -116,7 +116,7 @@ This is how you can run `FAUST Nextflow` using AWS Resources
     1. Convert this gating set into an `R` `FlowWorkspace` gating set and save it
     1. Save the gating set to a directory
 1. Create an `active channels file`
-    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `active channels file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md##active-channels-file) section for more information
+    - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `active channels file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md#active-channels-file) section for more information
 1. Create a `channel bounds file`
     - See the [documentation/HOW_TO_USE_FAUST_NEXTFLOW.md `channel bounds file`](documentation/HOW_TO_USE_FAUST_NEXTFLOW.md#channel-bounds-file) section for more information
 1. Create a `supervised list file`
