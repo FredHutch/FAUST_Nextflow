@@ -17,9 +17,7 @@ This document covers the process for building the `Nextflow` `Docker` image
 
 # Why Is This Needed
 
-`Nextflow` **requires** a docker image to be specified when not running on your local file system - AKA running `Nextflow` using `AWS`
-
-Because of this a `Docker` image that contains the `FAUST` tool/library needs to be provided in the workflow.
+`Nextflow` **requires** a docker image to be specified when running `Nextflow` using `AWS`.
 
 # Tools
 
@@ -30,10 +28,10 @@ Because of this a `Docker` image that contains the `FAUST` tool/library needs to
 
 # Required Environment Variables
 
-| Environment Variable                  | Expected Value                           | Description                                                                                                                                                                |
-| ------------------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `FAUST_NEXTFLOW_DOCKER_IMAGE_VERSION` | 0.0.1                                    | This script is responsible for building the `Docker` image                                                                                                                 |
-| `GITHUB_PAT`                          | 11111111111aaaaaaaaaaa22222222222bbbbbbb | Access to the private `scampDev` repository is required to build the `Docker` image in order to have access to that a GitHub Personal Access Token (PAT) MUST be provided. |
+| Environment Variable                  | Expected Value                           | Description                                                                                                                                                                 |
+| ------------------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FAUST_NEXTFLOW_DOCKER_IMAGE_VERSION` | 0.0.1                                    | This script is responsible for building the `Docker` image                                                                                                                  |
+| `GITHUB_PAT`                          | 11111111111aaaaaaaaaaa22222222222bbbbbbb | Access to the private `scampDev` repository is required to build the `Docker` image. In order to have access to that a GitHub Personal Access Token (PAT) MUST be provided. |
 
 # Required Docker Registry Access
 
