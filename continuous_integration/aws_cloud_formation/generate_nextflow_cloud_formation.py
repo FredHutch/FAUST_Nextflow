@@ -240,7 +240,7 @@ batch_job_queue = JobQueue(
 # Template
 # ----------------------------------------
 faust_nextflow_template = Template()
-faust_nextflow_template.add_version()
+faust_nextflow_template.set_version()
 faust_nextflow_template.set_description(description)
 
 # ----------------------------------------
