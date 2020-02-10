@@ -165,7 +165,7 @@ This is how you can run `FAUST Nextflow` using AWS Resources
                                   --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
                                   --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
                                   --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES] \
-                                  --aws_batch_queue [REDACTED] \
+                                  -process.queue [REDACTED] \
                                   -bucket-dir s3://[REDACTED]
         ```
 -   Actual Example
@@ -177,7 +177,7 @@ This is how you can run `FAUST Nextflow` using AWS Resources
                                   --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
                                   --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
                                   --input_gating_set_directory ~/Desktop/nextflow_testing/dataset \
-                                  --aws_batch_queue example_queue \
+                                  -process.queue example_queue \
                                   -bucket-dir s3://example_bucket
         ```
 
