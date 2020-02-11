@@ -44,7 +44,7 @@ License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 URL: https://github.com/FredHutch/faust
 BugReports: https://github.com/FredHutch/faust/issues
 SystemRequirements: C++11

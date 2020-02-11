@@ -3,19 +3,32 @@
 \docType{package}
 \name{faust}
 \alias{faust}
-\alias{faust-package}
 \title{Full Annotation Using Shape-constrained Trees}
 \usage{
-faust(gatingSet, activeChannels, channelBounds = "", startingCellPop,
-  experimentalUnit = "", imputationHierarchy = "", projectPath = ".",
-  depthScoreThreshold = 0.01, selectionQuantile = 0.5,
-  debugFlag = FALSE, threadNum = 1, seedValue = 123,
-  numForestIter = 1, numScampIter = 1,
+faust(
+  gatingSet,
+  activeChannels,
+  channelBounds = "",
+  startingCellPop,
+  experimentalUnit = "",
+  imputationHierarchy = "",
+  projectPath = ".",
+  depthScoreThreshold = 0.01,
+  selectionQuantile = 0.5,
+  debugFlag = FALSE,
+  threadNum = 1,
+  seedValue = 123,
+  numForestIter = 1,
+  numScampIter = 1,
   nameOccuranceNum = ceiling((0.1 * length(gatingSet))),
-  drawAnnotationHistograms = 1, supervisedList = NA,
-  annotationsApproved = FALSE, densitySubSampleThreshold = 1e+09,
-  densitySubSampleSize = 1e+09, densitySubSampleIterations = 1,
-  archDescriptionList = list(targetArch = c("singleCPU")))
+  drawAnnotationHistograms = 1,
+  supervisedList = NA,
+  annotationsApproved = FALSE,
+  densitySubSampleThreshold = 1e+09,
+  densitySubSampleSize = 1e+09,
+  densitySubSampleIterations = 1,
+  archDescriptionList = list(targetArch = c("singleCPU"))
+)
 }
 \arguments{
 \item{gatingSet}{The \code{faust} function requires that experimental cytometry data you wish to analyze
@@ -128,7 +141,7 @@ nodeThreadNum: number of threads requested on each node.}
 }
 \value{
 The FAUST pipeline returns a null value on completion. The main output is the file
-"projectPath/faustData/faustCountMatrix.rds". The rownames are \code{sampleNames(gatingSet)]}
+"projectPath/faustData/faustCountMatrix.rds". The rownames are \verb{sampleNames(gatingSet)]}
 and the column names are the cell populations discovered by the pipeline. Note that the
 special cell population "0_0_0_0_0" counts unclassified cells in the experiment.
 }

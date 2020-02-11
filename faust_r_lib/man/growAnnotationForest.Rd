@@ -4,18 +4,32 @@
 \alias{growAnnotationForest}
 \title{Faster Annotation Using Shape-constrained Trees}
 \usage{
-growAnnotationForest(dataSet, numberIterations = 1,
-  pValueThreshold = 0.35, minimumClusterSize = 25,
-  maximumSearchDepth = ncol(dataSet), maximumGatingNum = 1000,
-  maximumAntimodeNumber = 100, maximumSearchTime = 1e+06,
-  maximumRunTime = 1e+06, annotationVec = colnames(dataSet),
-  numberOfThreads = 1, randomCandidateSearch = FALSE,
-  anyValueRestricted = FALSE, resValMatrix = matrix(0, nrow = 2, ncol =
-  2), getDebugInfo = FALSE, cutPointUpperBound = 2,
-  gaussianScaleParameter = 4, randomSeed = 0,
-  allowRepeatedSplitting = FALSE, subSamplingThreshold = 1e+05,
-  subSampleSize = 10000, subSampleIter = 100, recordCounts = FALSE,
-  recordIndices = FALSE)
+growAnnotationForest(
+  dataSet,
+  numberIterations = 1,
+  pValueThreshold = 0.35,
+  minimumClusterSize = 25,
+  maximumSearchDepth = ncol(dataSet),
+  maximumGatingNum = 1000,
+  maximumAntimodeNumber = 100,
+  maximumSearchTime = 1e+06,
+  maximumRunTime = 1e+06,
+  annotationVec = colnames(dataSet),
+  numberOfThreads = 1,
+  randomCandidateSearch = FALSE,
+  anyValueRestricted = FALSE,
+  resValMatrix = matrix(0, nrow = 2, ncol = 2),
+  getDebugInfo = FALSE,
+  cutPointUpperBound = 2,
+  gaussianScaleParameter = 4,
+  randomSeed = 0,
+  allowRepeatedSplitting = FALSE,
+  subSamplingThreshold = 1e+05,
+  subSampleSize = 10000,
+  subSampleIter = 100,
+  recordCounts = FALSE,
+  recordIndices = FALSE
+)
 }
 \arguments{
 \item{dataSet}{The input dataSet to be clustered by faust.
