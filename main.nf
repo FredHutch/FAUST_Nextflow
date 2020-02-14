@@ -24,6 +24,7 @@ process initialize_faust_data {
     // [ directives ]
     container "rglab/faust-nextflow:latest"
     label "high_memory"
+    publishDir "FAUST_RESULTS", pattern: "analysisMap.rds"
 
     input:
         file input_directory from file(params.input_gating_set_directory, type: "dir")
@@ -205,7 +206,8 @@ process reconcile_annotation_boundaries {
     // [ directives ]
     container "rglab/faust-nextflow:latest"
     label "micro_mem_and_cpu"
-
+    publishDir "FAUST_RESULTS", pattern: "*resList*"
+    
     input: 
         set file(supervised_list), file(analysis_map), file(score_mat), file(depth_mat), file(initselc) from STEP_06_CONSTRUCTED_FILES_CHANNEL
         file annotation_files from STEP_06_EU_ANNOTATION_CHANNEL.collect()
@@ -361,7 +363,7 @@ process gate_clusters {
     // [ directives ]
     container "rglab/faust-nextflow:latest"
     label "micro_mem_and_cpu"
-    
+    publishDir "FAUST_RESULTS", pattern: "scampNameSummary*" 
     input:
     file(sample_annotation_matrices) from STEP_12_ANNOTATION_MATRICES_CHANNEL.collect()
     file eu_cluster_labels from STEP_12_CLUSTER_LABELS.collect()
@@ -390,6 +392,7 @@ process make_count_matrix {
     // [ directives ]
     container "rglab/faust-nextflow:latest"
     label "micro_mem_and_cpu"
+    publishDir "FAUST_RESULTS", pattern: "colNameMap*"
 
     input:
         set file(scamp_name_summary), file(scamp_cluster_names), file(selected_channels), file(analysis_map) from STEP_13_CHANNEL
@@ -397,6 +400,7 @@ process make_count_matrix {
 
     output:
         file("faustCountMatrix.rds") into COUNT_MATRIX_CH
+	file("colNameMap.rds") into COLNAME_MAP_CH
 
     script:
         """
