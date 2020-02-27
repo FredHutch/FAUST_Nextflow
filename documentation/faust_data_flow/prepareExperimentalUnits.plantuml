@@ -1,0 +1,27 @@
+@startuml
+top to bottom direction
+hide circle
+hide members
+
+!include global_faust_structure.plantuml
+
+
+' ------------------------------------------------------------------------------
+' prepareExperimentalUnits
+' ------------------------------------------------------------------------------
+' Input
+userProjectPath -[input_color]->  prepareExperimentalUnits: function input
+' Internal Requirements
+analysisMapRDS -[internal_requirement_color]->  prepareExperimentalUnits: internal expectation
+exprsMatRDS -[internal_requirement_color]->  prepareExperimentalUnits: internal expectation
+resMatRDS -[internal_requirement_color]->  prepareExperimentalUnits: internal expectation
+sampleData -[internal_requirement_color]->  prepareExperimentalUnits: internal expectation - needs all samples
+' Output
+prepareExperimentalUnits -[output_color]-> firstALReadyRDS
+prepareExperimentalUnits -[output_color]-> expUnitData
+prepareExperimentalUnits -[output_color]-> expUnitDataXXXX
+prepareExperimentalUnits -[output_color]-> expUnitExprsRDS
+prepareExperimentalUnits -[output_color]-> expUnitResRDS
+prepareExperimentalUnits -[output_color]-> expUnitToSampleLookupRDS
+
+@enduml

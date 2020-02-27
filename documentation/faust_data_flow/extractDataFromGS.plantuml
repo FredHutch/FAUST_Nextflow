@@ -1,0 +1,23 @@
+@startuml
+top to bottom direction
+hide circle
+hide members
+
+!include global_faust_structure.plantuml
+
+
+' ------------------------------------------------------------------------------
+' extractDataFromGS
+' ------------------------------------------------------------------------------
+' Input
+userGatingSet -[input_color]->  extractDataFromGS: function input
+userActiveChannels -[input_color]->  extractDataFromGS: function input
+userStartingCellPop -[input_color]->  extractDataFromGS: function input
+userProjectPath -[input_color]->  extractDataFromGS: function input
+userDebugFlag -[input_color]->  extractDataFromGS: function input
+' Output - File creation
+extractDataFromGS -[output_color]-> sampleDataXXXX: creates directory
+extractDataFromGS -[output_color]-> exprsMatRDS: creates file
+extractDataFromGS -[output_color]-> parsedGSRDS: creates file
+
+@enduml

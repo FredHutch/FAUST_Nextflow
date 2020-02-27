@@ -1,0 +1,32 @@
+@startuml
+top to bottom direction
+hide circle
+hide members
+
+!include global_faust_structure.plantuml
+
+' ------------------------------------------------------------------------------
+' initializeFaustDataDir
+' ------------------------------------------------------------------------------
+' Input
+userActiveChannels -[input_color]-> initializeFaustDataDir: function input
+userChannelBounds -[input_color]-> initializeFaustDataDir: function input
+userProjectPath -[input_color]-> initializeFaustDataDir: function input
+userStartingCellPop -[input_color]-> initializeFaustDataDir: function input
+userSupervisedList -[input_color]-> initializeFaustDataDir: function input
+' Output - Directory creation
+initializeFaustDataDir -[output_color]-> faustData: creates directory
+initializeFaustDataDir -[output_color]-> sampleData: creates directory
+initializeFaustDataDir -[output_color]-> metaData: creates directory
+initializeFaustDataDir -[output_color]-> plotData: creates directory
+initializeFaustDataDir -[output_color]-> histograms: creates directory
+' Output - File creation
+initializeFaustDataDir -[output_color]-> activeChannelsRDS: creates file
+initializeFaustDataDir -[output_color]-> channelBoundsRDS: creates file
+initializeFaustDataDir -[output_color]-> startingCellPopRDS: creates file
+initializeFaustDataDir -[output_color]-> sanitizedCellPopStrRDS: creates file
+initializeFaustDataDir -[output_color]-> forceListRDS: creates file
+initializeFaustDataDir -[output_color]-> selectionListRDS: creates file
+initializeFaustDataDir -[output_color]-> preferenceListRDS: creates file
+
+@enduml

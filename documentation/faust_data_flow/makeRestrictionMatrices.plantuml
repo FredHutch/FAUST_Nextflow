@@ -1,0 +1,25 @@
+@startuml
+top to bottom direction
+hide circle
+hide members
+
+!include global_faust_structure.plantuml
+
+
+' ------------------------------------------------------------------------------
+' makeRestrictionMatrices
+' ------------------------------------------------------------------------------
+' Input
+sampleNames -[input_color]->  makeRestrictionMatrices: function input
+userChannelBounds -[input_color]->  makeRestrictionMatrices: function input
+userProjectPath -[input_color]->  makeRestrictionMatrices: function input
+userDebugFlag -[input_color]->  makeRestrictionMatrices: function input
+' Internal Requirements
+analysisMapRDS -[internal_requirement_color]->  makeRestrictionMatrices: internal expectation
+exprsMatRDS -[internal_requirement_color]->  makeRestrictionMatrices: internal expectation
+sampleData -[internal_requirement_color]->  makeRestrictionMatrices: internal expectation
+' Output
+makeRestrictionMatrices -[output_color]-> sampleData
+makeRestrictionMatrices -[output_color]-> resMatRDS
+
+@enduml

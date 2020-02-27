@@ -30,22 +30,12 @@ RUN R -e "install.packages('devtools', repos='https://cloud.r-project.org/', ver
 # Install `FAUST` dependencies
 # Install BiocManager
 RUN R -e "install.packages(c('BiocManager'), repos='https://cloud.r-project.org/', version='1.30.10')"
-RUN R -e "BiocManager::install('Biobase', version='3.10')"
-RUN R -e "BiocManager::install('RProtoBufLib', version='3.10')"
-RUN R -e "BiocManager::install('cytolib', version='3.10')"
-RUN R -e "BiocManager::install('flowCore', version='3.10')"
-RUN R -e "BiocManager::install('ncdfFlow', version='3.10')"
-RUN R -e "BiocManager::install('flowWorkspace', version='3.10')"
-RUN R -e "BiocManager::install('ggcyto', version='3.10')"
+RUN R -e "BiocManager::install('Biobase', update = FALSE, version = '3.10')"
+RUN R -e "BiocManager::install('flowCore', update = FALSE, version = '3.10')"
+RUN R -e "BiocManager::install('flowWorkspace', update = FALSE, version = '3.10')"
 
 # Set dev tools installation to use GitHub personal access token that was passed in
 RUN R -e "usethis::browse_github_pat()"
 
 RUN R -e "devtools::install_github('FredHutch/scampDev', auth_token='$GITHUB_PAT')"
-RUN R -e "install.packages('cowplot', repos='https://cloud.r-project.org/', version='1.0.0')"
-RUN R -e "install.packages('viridis', repos='https://cloud.r-project.org/', version='0.5.1')"
-RUN R -e "install.packages('tidyr', repos='https://cloud.r-project.org/', version='1.0.0')"
-RUN R -e "install.packages('ggridges', repos='https://cloud.r-project.org/', version='0.5.1')"
-
-COPY faust_r_lib faust
-RUN R CMD INSTALL faust  --preclean
+RUN R -e "devtools::install_github('RGLab/FAUST', ref='devel')"
