@@ -2,7 +2,7 @@ nextflow.preview.dsl=2
 
 process gateScampClusters {
     // [ directives ]
-    container "rglab/faust-nextflow:1.0.0"
+    container "rglab/faust-nextflow:cytolib"
     label "standard_mem_and_cpu"
     publishDir "FAUST_RESULTS", mode: "copy", overwrite: false
     echo true

@@ -4,7 +4,7 @@ params.number_of_iterations = 1
 
 process growAnnotationForest {
     // [ directives ]
-    container "rglab/faust-nextflow:1.0.0"
+    container "rglab/faust-nextflow:cytolib"
     label "large_cpu"
 
     input:

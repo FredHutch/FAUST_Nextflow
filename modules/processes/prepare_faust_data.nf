@@ -2,7 +2,7 @@ nextflow.preview.dsl=2
 
 process prepareFAUSTData {
     // [ directives ]
-    container "rglab/faust-nextflow:1.0.0"
+    container "rglab/faust-nextflow:cytolib"
     label "high_memory"
 
     input:

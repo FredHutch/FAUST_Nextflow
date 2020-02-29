@@ -2,7 +2,7 @@ nextflow.preview.dsl=2
 
 process clusterExperimentalUnitsWithScamp {
     // [ directives ]
-    container "rglab/faust-nextflow:1.0.0"
+    container "rglab/faust-nextflow:cytolib"
     label "large_cpu"
     // echo true
 
