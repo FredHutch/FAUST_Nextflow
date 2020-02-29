@@ -36,10 +36,9 @@ process growAnnotationForest {
         # -------------------------
         # FAUST Data
         # -------------------------
-        active_channels_rds_object <- readRDS("${active_channels_path_channel}")
 
         metadata_directory <- file.path("${project_path}", "faustData", "metaData")
-
+        active_channels_rds_object <- readRDS(file.path(metadata_directory,"activeChannels.rds"))
         sanitized_cell_pop_file_path <- file.path(metadata_directory, "sanitizedCellPopStr.rds")
         sanitized_cell_pop_rds_object <- readRDS(sanitized_cell_pop_file_path)
         analysis_map_file_path <- file.path(metadata_directory, "analysisMap.rds")
