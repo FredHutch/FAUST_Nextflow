@@ -1,14 +1,16 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
-
 -   [AWS Batch Reading](#aws-batch-reading)
 -   [Text Editor Integration](#text-editor-integration)
     -   [Sublime Text](#sublime-text)
 -   [Idiomatic Usage](#idiomatic-usage)
 -   [Inspiration](#inspiration)
 -   [Scaling](#scaling)
+-   [Printing Output in Workflows/Groovy](#printing-output-in-workflowsgroovy)
+-   [Printing Output a Process](#printing-output-a-process)
+-   [Repeating a Channel's Inputs](#repeating-a-channels-inputs)
+-   [Random](#random)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
