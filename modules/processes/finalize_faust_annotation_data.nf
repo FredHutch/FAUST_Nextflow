@@ -26,13 +26,8 @@ process finalizeFAUSTAnnotationData {
         path "*faustData/metaData", emit: metadata_directory
         path "*faustData/sampleData", emit: samples_data_directory
         path "*faustData/gateData", emit: gate_data_directory
-<<<<<<< HEAD
-        path "*faustData/plotData/*", emit: plot_data_directory 
-	path "*faustData/expUnitData", emit: experimental_units_directory 
-=======
         path "*faustData/plotData/*", emit: plot_data_directory
         path "*faustData/expUnitData/*", emit: experimental_units_directory
->>>>>>> development
 
     script:
         """

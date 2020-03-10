@@ -22,11 +22,7 @@ process plotPhenotypeFilter {
     output:
         path "*faustData/metaData", emit: metadata_directory
         path "*faustData/plotData/*", emit: plot_data_directory
-<<<<<<< HEAD
-	path "*faustData/expUnitData/*", emit: experimental_unit_directory 
-=======
         path "*faustData/expUnitData/*", emit: experimental_unit_directory
->>>>>>> development
 
     script:
         """
