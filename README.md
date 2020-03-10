@@ -96,9 +96,10 @@ The `discover_phenotypes` command is the full execution of `FAUST` by default it
 
 ## Run `FAUST` using the local configurations
 
+-   ⚠️ **Warning** Execute this using the `nextflow run` command, or execute this from repository's root directory
+
 ### Template Example
 
--   ⚠️ **Warning** Execute this using the `nextflow run` command, or execute this from repository's root directory
 -   `generate_annotations`
     -   ```bash
         ./nextflow run main.nf -profile local \
@@ -201,47 +202,64 @@ This is how you can run `FAUST Nextflow` using AWS Resources
 
 ## Run `FAUST` using the AWS configurations
 
+-   ⚠️ **Warning** Execute this using the `nextflow run` command, or execute this from repository's root directory
+
 ### Template Example
 
--   ⚠️ **Warning** Execute this using the `nextflow run` command, or execute this from repository's root directory
 -   `generate_annotations`
     -   ```bash
-        ./nextflow run main.nf -profile aws \
-                                --active_channels_path [PATH_TO_ACTIVE_CHANNELS_RDS_FILE] \
-                                --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
-                                --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
-                                --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES] \
-                                --command generate_annotations
+          export AWS_ACCESS_KEY_ID=[REDACTED]
+          export AWS_SECRET_ACCESS_KEY=[REDACTED]
+          ./nextflow run main.nf -c "./aws_batch_nextflow.config" \
+                                  --active_channels_path [PATH_TO_ACTIVE_CHANNELS_RDS_FILE] \
+                                  --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
+                                  --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
+                                  --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES] \
+                                  --command generate_annotations \
+                                  -process.queue [REDACTED] \
+                                  -bucket-dir s3://[REDACTED]
         ```
 -   `discover_phenotypes`
     -   ```bash
-        ./nextflow run main.nf -profile aws \
-                                --active_channels_path [PATH_TO_ACTIVE_CHANNELS_RDS_FILE] \
-                                --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
-                                --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
-                                --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES] \
-                                --command discover_phenotypes
+          export AWS_ACCESS_KEY_ID=[REDACTED]
+          export AWS_SECRET_ACCESS_KEY=[REDACTED]
+          ./nextflow run main.nf -c "./aws_batch_nextflow.config" \
+                                  --active_channels_path [PATH_TO_ACTIVE_CHANNELS_RDS_FILE] \
+                                  --channel_bounds_path [PATH_TO_CHANNEL_BOUNDS_RDS_FILE] \
+                                  --supervised_list_path [PATH_TO_SUPERVISED_LIST_RDS_FILE] \
+                                  --input_gating_set_directory [PATH_TO_A_DIRECTORY_CONTAINING_FLOW_WORKSPACE_GATING_SET_FILES] \
+                                  --command discover_phenotypes \
+                                  -process.queue [REDACTED] \
+                                  -bucket-dir s3://[REDACTED]
         ```
 
 ### Actual Example
 
 -   `generate_annotations`
     -   ```bash
-        ./nextflow run main.nf -profile aws \
-                                --active_channels_path ~/Desktop/nextflow_testing/helper_files/active_channels.rds \
-                                --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
-                                --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
-                                --input_gating_set_directory ~/Desktop/nextflow_testing/dataset \
-                                --command generate_annotations
+          export AWS_ACCESS_KEY_ID=[REDACTED]
+          export AWS_SECRET_ACCESS_KEY=[REDACTED]
+          ./nextflow run main.nf -c "./aws_batch_nextflow.config" \
+                                  --active_channels_path ~/Desktop/nextflow_testing/helper_files/active_channels.rds \
+                                  --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
+                                  --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
+                                  --input_gating_set_directory ~/Desktop/nextflow_testing/dataset \
+                                  --command generate_annotations \
+                                  -process.queue example_queue \
+                                  -bucket-dir s3://example_bucket
         ```
 -   `discover_phenotypes`
     -   ```bash
-        ./nextflow run main.nf -profile aws \
-                                --active_channels_path ~/Desktop/nextflow_testing/helper_files/active_channels.rds \
-                                --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
-                                --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
-                                --input_gating_set_directory ~/Desktop/nextflow_testing/dataset \
-                                --command discover_phenotypes
+          export AWS_ACCESS_KEY_ID=[REDACTED]
+          export AWS_SECRET_ACCESS_KEY=[REDACTED]
+          ./nextflow run main.nf -c "./aws_batch_nextflow.config" \
+                                  --active_channels_path ~/Desktop/nextflow_testing/helper_files/active_channels.rds \
+                                  --channel_bounds_path ~/Desktop/nextflow_testing/helper_files/channel_bounds.rds \
+                                  --supervised_list_path ~/Desktop/nextflow_testing/helper_files/supervised_list.rds \
+                                  --input_gating_set_directory ~/Desktop/nextflow_testing/dataset \
+                                  --command discover_phenotypes \
+                                  -process.queue example_queue \
+                                  -bucket-dir s3://example_bucket
         ```
 
 ## Wait for processing to complete
