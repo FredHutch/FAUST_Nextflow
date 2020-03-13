@@ -79,7 +79,7 @@ workflow discoverPhenotypes {
 
 
         gateScampClusters(plotPhenotypeFilter.out.metadata_directory,
-                          clusterExperimentalUnitsWithScamp.out.samples_data_directory.toList(),
+                          clusterExperimentalUnitsWithScamp.out.samples_data_directory.collect(),
                           finalizeFAUSTAnnotationData.out.gate_data_directory,
                           project_path,
                           debug_flag)

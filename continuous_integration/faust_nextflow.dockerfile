@@ -31,7 +31,7 @@ RUN R -e "install.packages('devtools', repos='https://cloud.r-project.org/', ver
 # Install BiocManager
 RUN R -e "install.packages(c('BiocManager'), repos='https://cloud.r-project.org/', version='1.30.10')"
 RUN R -e "BiocManager::install('Biobase', update = FALSE, version = '3.10')"
-RUN R -e "devtools::install_github('RGLab/RProtoBufLib',ref='trunk')"
+RUN R -e "devtools::install_github('RGLab/RProtoBufLib',ref='master')"
 RUN R -e "devtools::install_github('RGLab/cytolib',ref='master')"
 RUN R -e "devtools::install_github('RGLab/flowCore',ref='master')"
 RUN R -e "devtools::install_github('RGLab/ncdfFlow',ref='trunk')"
