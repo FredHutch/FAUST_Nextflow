@@ -5,7 +5,7 @@ process gateScampClusters {
     container "rglab/faust-nextflow:cytolib"
     label "standard_mem_and_cpu"
     publishDir "FAUST_RESULTS", mode: "copy", overwrite: true 
-    echo true
+    // echo true
 
     input:
         // User

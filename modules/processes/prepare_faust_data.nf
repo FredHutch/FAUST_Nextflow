@@ -41,7 +41,10 @@ process prepareFAUSTData {
         # -------------------------
         # FAUST Data
         # -------------------------
-        gating_set <- flowWorkspace::load_gs("${input_gating_set_directory_channel}")
+        gating_set_parent_directory_path <- dirname("${input_gating_set_directory_channel}")
+        converted_gating_set_directory_path <- file.path(gating_set_parent_directory_path, "converted_gating_set")
+        convert_legacy_gs("${input_gating_set_directory_channel}", converted_gating_set_directory_path)
+        gating_set <- flowWorkspace::load_gs(converted_gating_set_directory_path)
 
         active_channels_rds_object <- readRDS("${active_channels_path_channel}")
         channel_bounds_rds_object <- readRDS("${channel_bounds_path_channel}")
