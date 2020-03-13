@@ -50,7 +50,6 @@ params.seed_value = 123
 params.draw_annotation_histograms = "TRUE"
 params.annotations_approved = "FALSE"
 params.plotting_device = "pdf"
-params.discover_phenotypes = false
 
 //  Nextflow Specific Execution Parameters
 params.command = "USER_DID_NOT_PROVIDE_COMMAND"
