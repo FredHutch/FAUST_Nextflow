@@ -1,0 +1,188 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: This is the FAUST Nextflow Amazon Web Services(AWS) cloud formation script.
+    It will create all the AWS infrastructure required for running the FAUST Nextflow
+    script.
+Parameters:
+    AWSServiceTag:
+        AllowedPattern: ^[a-zA-Z0-9-_]*$
+        Default: faust-nextflow
+        Description: This is the tag that will be assigned to the  different aws Services.
+            It is useful for triaging debugging issues within AWS.
+        MaxLength: 40
+        MinLength: 1
+        Type: String
+    BatchComputeEnvironmentDesiredVCPU:
+        Default: 0
+        Type: Number
+    BatchComputeEnvironmentMaxVCPU:
+        Default: 10000
+        Type: Number
+    BatchComputeEnvironmentMinVCPU:
+        Default: 0
+        Description: >-
+            The number of minimum vcpus that AWS Batch will ALWAYS be running. If this is
+            greater than 0 it will reduce runtime by always having these CPUs available.
+            CAUTION: You will always be charged for these regardless if you are running
+            FAUST.
+        Type: Number
+    BatchJobQueuePriority:
+        Default: 1
+        Description: Job queues with a higher integer value for priority are given preference
+            for compute resources.
+        Type: Number
+    CloudResourceName:
+        AllowedPattern: ^[a-zA-Z0-9-_]*$
+        Default: faust-nextflow
+        Description: The name to use for all aws resources creatd.
+        MaxLength: 40
+        MinLength: 1
+        Type: String
+Resources:
+    AmazonEC2SpotFleetRole:
+        Properties:
+            AssumeRolePolicyDocument:
+                Statement:
+                    - Action:
+                          - sts:AssumeRole
+                      Effect: Allow
+                      Principal:
+                          Service:
+                              - spot.amazonaws.com
+                              - spotfleet.amazonaws.com
+            ManagedPolicyArns:
+                - arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole
+            Policies: []
+            Tags:
+                - Key: service
+                  Value: !Ref "AWSServiceTag"
+        Type: AWS::IAM::Role
+    BatchServiceRole:
+        Properties:
+            AssumeRolePolicyDocument:
+                Statement:
+                    - Action:
+                          - sts:AssumeRole
+                      Effect: Allow
+                      Principal:
+                          Service:
+                              - batch.amazonaws.com
+            ManagedPolicyArns:
+                - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
+            Policies: []
+            Tags:
+                - Key: service
+                  Value: !Ref "AWSServiceTag"
+        Type: AWS::IAM::Role
+    ComputeEnvironment:
+        Properties:
+            ComputeEnvironmentName: !Ref "CloudResourceName"
+            ComputeResources:
+                BidPercentage: 50
+                DesiredvCpus: !Ref "BatchComputeEnvironmentDesiredVCPU"
+                ImageId: ami-0a9d84df942521898
+                InstanceRole: !Ref "IAMInstanceProfilfe"
+                InstanceTypes:
+                    - optimal
+                MaxvCpus: !Ref "BatchComputeEnvironmentMaxVCPU"
+                MinvCpus: !Ref "BatchComputeEnvironmentMinVCPU"
+                SecurityGroupIds:
+                    - !Ref "SecurityGroup"
+                SpotIamFleetRole: !Ref "AmazonEC2SpotFleetRole"
+                Subnets:
+                    - !Ref "Subnet"
+                Type: SPOT
+            ServiceRole: !Ref "BatchServiceRole"
+            Type: MANAGED
+        Type: AWS::Batch::ComputeEnvironment
+    ECSInstanceRole:
+        Properties:
+            AssumeRolePolicyDocument:
+                Statement:
+                    - Action:
+                          - sts:AssumeRole
+                      Effect: Allow
+                      Principal:
+                          Service:
+                              - ec2.amazonaws.com
+                      Sid: ""
+            ManagedPolicyArns:
+                - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role
+                - arn:aws:iam::aws:policy/AmazonS3FullAccess
+            Policies: []
+            Tags:
+                - Key: service
+                  Value: !Ref "AWSServiceTag"
+        Type: AWS::IAM::Role
+    IAMInstanceProfilfe:
+        Properties:
+            Roles:
+                - !Ref "ECSInstanceRole"
+        Type: AWS::IAM::InstanceProfile
+    InternetGateway:
+        Properties:
+            Tags:
+                - Key: service
+                  Value: !Ref "AWSServiceTag"
+        Type: AWS::EC2::InternetGateway
+    InternetGatewayAttachment:
+        Properties:
+            InternetGatewayId: !Ref "InternetGateway"
+            VpcId: !Ref "VPC"
+        Type: AWS::EC2::VPCGatewayAttachment
+    JobQueue:
+        Properties:
+            ComputeEnvironmentOrder:
+                - ComputeEnvironment: !Ref "ComputeEnvironment"
+                  Order: 1
+            JobQueueName: !Ref "CloudResourceName"
+            Priority: !Ref "BatchJobQueuePriority"
+        Type: AWS::Batch::JobQueue
+    Route:
+        Properties:
+            DestinationCidrBlock: "0.0.0.0/0"
+            GatewayId: !Ref "InternetGateway"
+            RouteTableId: !Ref "RouteTable"
+        Type: AWS::EC2::Route
+    RouteTable:
+        Properties:
+            Tags:
+                - Key: service
+                  Value: !Ref "AWSServiceTag"
+            VpcId: !Ref "VPC"
+        Type: AWS::EC2::RouteTable
+    S3Bucket:
+        DeletionPolicy: Retain
+        Properties:
+            AccessControl: Private
+            BucketName: !Ref "CloudResourceName"
+        Type: AWS::S3::Bucket
+    SecurityGroup:
+        Properties:
+            GroupDescription: EC2 Security Group for instances launched in the VPC by batch
+            Tags:
+                - Key: service
+                  Value: !Ref "AWSServiceTag"
+            VpcId: !Ref "VPC"
+        Type: AWS::EC2::SecurityGroup
+    Subnet:
+        Properties:
+            CidrBlock: 10.0.0.0/24
+            MapPublicIpOnLaunch: "true"
+            Tags:
+                - Key: service
+                  Value: !Ref "AWSServiceTag"
+            VpcId: !Ref "VPC"
+        Type: AWS::EC2::Subnet
+    SubnetRouteTableAssociation:
+        Properties:
+            RouteTableId: !Ref "RouteTable"
+            SubnetId: !Ref "Subnet"
+        Type: AWS::EC2::SubnetRouteTableAssociation
+    VPC:
+        Properties:
+            CidrBlock: 10.0.0.0/16
+            EnableDnsHostnames: "true"
+            Tags:
+                - Key: service
+                  Value: !Ref "AWSServiceTag"
+        Type: AWS::EC2::VPC

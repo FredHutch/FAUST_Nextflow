@@ -18,9 +18,9 @@ from troposphere.ec2 import RouteTable
 from troposphere.ec2 import SecurityGroup
 from troposphere.ec2 import Subnet
 from troposphere.ec2 import SubnetRouteTableAssociation
+from troposphere.ec2 import Tag
 from troposphere.ec2 import VPC
 from troposphere.ec2 import VPCGatewayAttachment
-from troposphere.ec2 import Tag
 from troposphere.iam import InstanceProfile
 from troposphere.iam import Role
 from troposphere.s3 import Bucket
@@ -303,14 +303,20 @@ faust_nextflow_template.add_resource(s3_bucket)
 faust_nextflow_template.add_resource(batch_compute_environment)
 faust_nextflow_template.add_resource(batch_job_queue)
 
-# TODO: set these to be separate commands for running the script
-# ------------------------------------------------------------------------------
-# Print Template
-# ------------------------------------------------------------------------------
-print(faust_nextflow_template.to_yaml())
 
-# ------------------------------------------------------------------------------
-# Output Template
-# ------------------------------------------------------------------------------
-with open("nextflow_cloud_formation.yml", "w") as file_handle:
-    file_handle.write(faust_nextflow_template.to_yaml())
+def main():
+    # --------------------------------------------------------------------------
+    # Print Template
+    # --------------------------------------------------------------------------
+    print(faust_nextflow_template.to_yaml())
+
+    # --------------------------------------------------------------------------
+    # Output Template
+    # --------------------------------------------------------------------------
+    with open("generic_nextflow_cloud_formation.yml", "w") as file_handle:
+        file_handle.write(faust_nextflow_template.to_yaml())
+
+
+if __name__ == "__main__":
+    # execute only if run as a script
+    main()
