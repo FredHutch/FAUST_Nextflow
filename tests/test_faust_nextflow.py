@@ -3,7 +3,6 @@
 # ------------------------------------------------------------------------------
 # Python Standard Libraries
 # ------------------------------------------------------------------------------
-import datetime
 from enum import Enum
 import os
 import subprocess
@@ -183,7 +182,7 @@ def run_command(command_arguments, log_file_absolute_path=None, verbose=True):
     completed_process_standard_out = completed_process.stdout
     completed_process_standard_error = completed_process.stderr
     completed_process_return_code = completed_process.returncode
-    completed_process_start_time = convertDateTimeToString(process_start_time)
+    completed_process_start_time = convertTimeToString(process_start_time)
     completed_process_total_duration_in_seconds = round(time.time() - process_start_time)
 
     if verbose:
@@ -225,9 +224,9 @@ def clean_nextflow_dirs(self):
                 log_file_absolute_path=FAUST_NEXTFLOW_TESTING_LOG_FILE_ABSOLUTE_PATH)
 
 
-def convertDateTimeToString(date_time_to_convert):
-    format = "%b %d %Y %I:%M%p"
-    converted_string = datetime.datetime.strptime(date_time_to_convert, format)
+def convertTimeToString(time_to_convert):
+    format = "%Y-%m-%d %H:%M:%S"
+    converted_string = time.strftime(format, time.localtime(time_to_convert))
     return converted_string
 
 
