@@ -2,7 +2,7 @@ nextflow.preview.dsl=2
 
 process prepareFAUSTData {
     // [ directives ]
-    container "rglab/faust-nextflow:1.0.0"
+    container "rglab/faust-nextflow:0.5.0"
     label "high_memory"
 
     input:
@@ -25,8 +25,6 @@ process prepareFAUSTData {
         path "*faustData/metaData", emit: metadata_directory
         path "*faustData/sampleData", emit: samples_data_directory
         path "*faustData/expUnitData/*", emit: experimental_unit_directories
-        // Needed because the user might not pass this in and default value is determined by gating set
-        env FAUST_NAME_OCCURRENCE_NUMBER, emit: default_name_occurrence_number_file
 
     script:
         """
@@ -41,24 +39,34 @@ process prepareFAUSTData {
         # -------------------------
         # FAUST Data
         # -------------------------
-        gating_set <- flowWorkspace::load_gs("${input_gating_set_directory_channel}")
+        gating_set_parent_directory_path <- dirname("${input_gating_set_directory_channel}")
+        gating_set <- try(flowWorkspace::load_gs("${input_gating_set_directory_channel}"))
+        if(inherits(gating_set,"try-error")){
+            converted_gating_set_directory_path <- file.path(gating_set_parent_directory_path, "converted_gating_set")
+            convert_legacy_gs("${input_gating_set_directory_channel}", converted_gating_set_directory_path)
+            gating_set <- try(flowWorkspace::load_gs(converted_gating_set_directory_path))
+        }
 
         active_channels_rds_object <- readRDS("${active_channels_path_channel}")
         channel_bounds_rds_object <- readRDS("${channel_bounds_path_channel}")
         supervised_list_rds_object <- readRDS("${supervised_list_path_channel}")
+
         if(is.null(active_channels_rds_object)){
             active_channels_rds_object<-flowWorkspace::markernames(gating_set)
         }else if(is.na(active_channels_rds_object)){
             active_channels_rds_object<-flowWorkspace::markernames(gating_set)
         }
+
         if(is.null(channel_bounds_rds_object)){
             channel_bounds_rds_object<-""
         }else if(is.na(channel_bounds_rds_object)){
             channel_bounds_rds_object<-""
         }
+
         if(is.null(supervised_list_rds_object)){
             supervised_list_rds_object<-NA
         }
+
         gating_set_p_data <- flowWorkspace::pData(gating_set)
         sample_names_rds_object <- flowWorkspace::sampleNames(gating_set)
 
@@ -66,13 +74,6 @@ process prepareFAUSTData {
         saveRDS(sample_names_rds_object, "./sample_names.rds")
 
         project_path <- normalizePath("${project_path}")
-
-        # Create default `name_occurrence_number`
-        name_occurrence_number <- ceiling((0.1 * length(gating_set)))
-        export_string <- paste0("export FAUST_NAME_OCCURRENCE_NUMBER=", name_occurrence_number)
-        file_handle <- file("faust_name_occurrence_number.txt")
-        writeLines(export_string, file_handle)
-        close(file_handle)
 
         # -------------------------
         # Run FAUST
@@ -110,9 +111,5 @@ process prepareFAUSTData {
 
         # ----------------------------------------------------------------------
         code
-
-        # Export env variables generated from gating set
-        source "faust_name_occurrence_number.txt"
-        # env
         """
 }

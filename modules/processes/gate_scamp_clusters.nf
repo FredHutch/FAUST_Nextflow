@@ -2,10 +2,10 @@ nextflow.preview.dsl=2
 
 process gateScampClusters {
     // [ directives ]
-    container "rglab/faust-nextflow:1.0.0"
+    container "rglab/faust-nextflow:0.5.0"
     label "standard_mem_and_cpu"
-    publishDir "FAUST_RESULTS", mode: "copy", overwrite: false
-    echo true
+    publishDir "FAUST_RESULTS", mode: "copy", overwrite: true
+    // echo true
 
     input:
         // User
@@ -23,6 +23,8 @@ process gateScampClusters {
     output:
         path "./faustData/metaData/colNameMap.rds", emit: faust_column_name_map
         path "./faustData/faustCountMatrix.rds", emit: faust_count_matrix
+        path "./faustData/exhaustiveFaustCountMatrix.rds", emit: exhaustive_faust_count_matrix
+        path "*faustData/sampleData", emit: samples_data_directory
 
     script:
         """
@@ -52,6 +54,17 @@ process gateScampClusters {
                                    debugFlag=${debug_flag})
         faust:::.getFaustCountMatrix(projectPath="${project_path}",
                                      debugFlag=${debug_flag})
+
+
+        faust:::.gateAllScampClusters(
+            projectPath = "${project_path}",
+            debugFlag = ${debug_flag}
+        )
+
+        faust:::.getExhaustiveFaustCountMatrix(
+            projectPath = "${project_path}",
+            debugFlag = ${debug_flag}
+        )
         # ----------------------------------------------------------------------
         code
         """

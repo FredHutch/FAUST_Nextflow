@@ -56,14 +56,12 @@ workflow discoverPhenotypes {
                                     project_path,
                                     debug_flag)
         // -----
-        def did_user_declare_a_default_name_occurrence_number = (name_occurrence_number != null)
-        def selected_name_occurrence_number =  did_user_declare_a_default_name_occurrence_number ? name_occurrence_number : prepareFAUSTData.out.default_name_occurrence_number_file.first() 
         clusterExperimentalUnitsWithScamp(finalizeFAUSTAnnotationData.out.metadata_directory,
                                           finalizeFAUSTAnnotationData.out.samples_data_directory,
                                           prepareFAUSTData.out.experimental_unit_directories.flatten(),
                                           finalizeFAUSTAnnotationData.out.gate_data_directory,
                                           starting_cell_population,
-                                          selected_name_occurrence_number,
+                                          name_occurrence_number,
                                           plotting_device,
                                           project_path,
                                           debug_flag,
@@ -72,14 +70,14 @@ workflow discoverPhenotypes {
 
         plotPhenotypeFilter(clusterExperimentalUnitsWithScamp.out.metadata_directory.first(),
                             clusterExperimentalUnitsWithScamp.out.experimental_units_directory.toList(),
-                            selected_name_occurrence_number,
+                            name_occurrence_number,
                             plotting_device,
                             project_path,
                             debug_flag)
 
 
         gateScampClusters(plotPhenotypeFilter.out.metadata_directory,
-                          clusterExperimentalUnitsWithScamp.out.samples_data_directory.toList(),
+                          clusterExperimentalUnitsWithScamp.out.samples_data_directory.collect(),
                           finalizeFAUSTAnnotationData.out.gate_data_directory,
                           project_path,
                           debug_flag)

@@ -4,3 +4,4 @@ if [[ -z "${FAUST_NEXTFLOW_DOCKER_IMAGE_VERSION}" ]]; then
     exit 1
 fi
 docker push rglab/faust-nextflow:$FAUST_NEXTFLOW_DOCKER_IMAGE_VERSION
+# TODO: Don't forget to tag latest!
