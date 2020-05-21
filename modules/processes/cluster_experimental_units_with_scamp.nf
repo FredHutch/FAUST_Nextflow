@@ -2,7 +2,7 @@ nextflow.preview.dsl=2
 
 process clusterExperimentalUnitsWithScamp {
     // [ directives ]
-    container "rglab/faust-nextflow:1.0.0"
+    container "rglab/faust-nextflow:0.5.0"
     label "large_cpu"
     // echo true
 
@@ -38,9 +38,9 @@ process clusterExperimentalUnitsWithScamp {
         # -------------------------
         library("faust")
 
-        list.dirs("./faustData/expUnitData")
-        list.files("./faustData/expUnitData/s1")
-        list.files("./faustData/expUnitData/s2")
+        # list.dirs("./faustData/expUnitData")
+        # list.files("./faustData/expUnitData/s1")
+        # list.files("./faustData/expUnitData/s2")
 
         # -------------------------
         # FAUST Data
@@ -53,12 +53,12 @@ process clusterExperimentalUnitsWithScamp {
         restriction_list_file_path <- file.path(normalizePath("${project_path}"),
                                                 "faustData",
                                                 "gateData",
-                                                paste0("${starting_cell_population}", "_resList.rds"))
+                                                paste0(gsub("[[:punct:]]","","${starting_cell_population}"), "_resList.rds"))
         restriction_list_rds_object <- readRDS(restriction_list_file_path)
         selected_channels_file_path <- file.path(normalizePath("${project_path}"),
                                                  "faustData",
                                                  "gateData",
-                                                 paste0("${starting_cell_population}", "_selectedChannels.rds"))
+                                                 paste0(gsub("[[:punct:]]","","${starting_cell_population}"), "_selectedChannels.rds"))
         selected_channels_rds_object <- readRDS(selected_channels_file_path)
 
         # -------------------------
@@ -71,11 +71,14 @@ process clusterExperimentalUnitsWithScamp {
                                          threadNum=${thread_number},
                                          seedValue=${seed_value},
                                          projectPath="${project_path}",
-                                         debugFlag=${debug_flag})
+                                         debugFlag=${debug_flag},
+                                         densitySubSampleThreshold=1e6,
+                                         densitySubSampleSize=1e6,
+                                         densitySubSampleIterations=1)
 
-        # clusterExperimentalUnitsWithScampTesting
-        list.files("./faustData/sampleData/s1")
-        list.files("./faustData/sampleData/s2")
+        # # clusterExperimentalUnitsWithScampTesting
+        # list.files("./faustData/sampleData/s1")
+        # list.files("./faustData/sampleData/s2")
 
         # -------------------------
         # Post FAUST

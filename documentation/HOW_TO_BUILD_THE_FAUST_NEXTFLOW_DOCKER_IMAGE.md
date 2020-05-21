@@ -48,8 +48,6 @@ The current repository being published to is [RGLab on DockerHub](https://hub.do
 1. In a terminal navigate to the `root directory` of the repository
 1. Set the required environment variables
     - `export FAUST_NEXTFLOW_DOCKER_IMAGE_VERSION="0.0.1"`
-        - Ideally, this should match the version of `FAUST` being used
-    - `export GITHUB_PAT="11111111111aaaaaaaaaaa22222222222bbbbbbb"`
 1. Build the `Docker` image
     - `sh continuous_integration/build_docker_images.sh`
 1. Deploy the `Docker` image

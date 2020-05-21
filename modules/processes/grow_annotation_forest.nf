@@ -4,7 +4,7 @@ params.number_of_iterations = 1
 
 process growAnnotationForest {
     // [ directives ]
-    container "rglab/faust-nextflow:1.0.0"
+    container "rglab/faust-nextflow:0.5.0"
     label "large_cpu"
 
     input:
@@ -57,7 +57,10 @@ process growAnnotationForest {
                                       debugFlag=${debug_flag},
                                       threadNum=${thread_number},
                                       seedValue=${seed_value},
-                                      projectPath="${project_path}")
+                                      projectPath="${project_path}",
+                                      densitySubSampleThreshold=1e6,
+                                      densitySubSampleSize=1e6,
+                                      densitySubSampleIterations=1)
 
         # ----------------------------------------------------------------------
         code
