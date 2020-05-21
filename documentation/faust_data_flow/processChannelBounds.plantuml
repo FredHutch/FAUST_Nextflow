@@ -1,0 +1,23 @@
+@startuml
+top to bottom direction
+hide circle
+hide members
+
+!include global_faust_structure.plantuml
+
+
+' ------------------------------------------------------------------------------
+' processChannelBounds
+' ------------------------------------------------------------------------------
+' Input
+sampleNames -[input_color]->  processChannelBounds: function input
+userChannelBounds -[input_color]->  processChannelBounds: function input
+userProjectPath -[input_color]->  processChannelBounds: function input
+userDebugFlag -[input_color]->  processChannelBounds: function input
+' Internal Requirements
+analysisMapRDS -[internal_requirement_color]->  processChannelBounds: internal expectation
+exprsMatRDS -[internal_requirement_color]->  processChannelBounds: internal expectation
+' Output
+processChannelBounds -[output_color]-> channelBoundsUsedByFAUSTRDS
+
+@enduml

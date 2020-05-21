@@ -1,0 +1,130 @@
+@startuml
+top to bottom direction
+hide circle
+hide members
+
+!global input_color = "#008000"
+!global internal_requirement_color = "#ff004d"
+!global output_color = "#0091ff"
+!global adhoc_parameter_color = "#ff5900"
+!global default_logic_color = "#000000"
+
+package userInput <<Folder>> {
+    package inputFiles <<Rectangle>> {
+        class userGatingSet
+    }
+
+    package analysisParameters <<Rectangle>> {
+        package analysisParametersValues <<Rectangle>> {
+            class userImputationHierarchy
+            class userExperimentalUnit
+            class userStartingCellPop
+            class userDepthScoreThreshold
+            class userSelectionQuantile
+            class userThreadNum
+            class userSeedValue
+            class userAnnotationsApproved
+            class userProjectPath
+            class userDebugFlag
+            class userArchDescriptionList
+        }
+
+        package analysisParametersFiles <<Rectangle>> {
+            class userActiveChannels
+            class userChannelBounds
+            class userSupervisedList
+        }
+    }
+}
+
+package fileSystem <<Folder>> {
+    package faustData <<Folder>> {
+        package gateData <<Folder>> {
+            class GATETODO
+        }
+
+        package metaData <<Folder>> {
+            class analysisMapRDS
+            class activeChannelsRDS
+            class channelBoundsRDS
+            class channelBoundsUsedByFAUSTRDS
+            class forceListRDS
+            class firstALReadyRDS
+            class parsedGSRDS
+            class preferenceListRDS
+            class sanitizedCellPopStrRDS
+            class selectionListRDS
+            class startingCellPopRDS
+        }
+
+        package plotData <<Folder>> {
+            class PLOTTODO
+            package histograms <<Folder>> {
+                class HISTTODO
+            }
+        }
+
+        package sampleData <<Folder>> {
+            package sampleDataXXXX <<Folder>> {
+                class exprsMatRDS
+                class resMatRDS
+            }
+        }
+
+        package expUnitData <<Folder>> {
+            package expUnitDataXXXX <<Folder>> {
+                class expUnitExprsRDS
+                class expUnitResRDS
+                class expUnitToSampleLookupRDS
+            }
+        }
+    }
+}
+
+package adhocVarialbes <<Rectangle>> {
+    class gspData
+    class sampleNames
+}
+
+package faust.R as faustR <<Folder>> {
+    package generateAnnotationThreshholds <<Rectangle>> {
+        class initializeFaustDataDir
+        class constructAnalysisMap
+        class extractDataFromGS
+        class processChannelBounds
+        class makeRestrictionMatrices
+        class prepareExperimentalUnits
+    }
+
+    package discoverPhenotypes <<Rectangle>> {
+        class validateDiscoveryParameters
+        class clusterExpUnitsWithScamp
+        class plotPhenotypeFilter
+        class gateScampClusters
+        class getFaustCountMatrix
+    }
+}
+
+class userPostProcessAndAnalysis
+
+' ------------------------------------------------------------------------------
+' Program Flow
+' ------------------------------------------------------------------------------
+' Moves through the overall state
+userInput -[default_logic_color]-> faustR
+faustR -[default_logic_color]-> generateAnnotationThreshholds
+generateAnnotationThreshholds -[default_logic_color]-> discoverPhenotypes
+discoverPhenotypes -[default_logic_color]-> userPostProcessAndAnalysis
+' Moves through generateAnnotationThreshholds
+initializeFaustDataDir -[default_logic_color]-> constructAnalysisMap
+constructAnalysisMap -[default_logic_color]-> extractDataFromGS
+extractDataFromGS -[default_logic_color]-> processChannelBounds
+processChannelBounds -[default_logic_color]-> makeRestrictionMatrices
+makeRestrictionMatrices -[default_logic_color]-> prepareExperimentalUnits
+' Moves through discoverPhenotypes
+validateDiscoveryParameters -[default_logic_color]-> clusterExpUnitsWithScamp
+clusterExpUnitsWithScamp -[default_logic_color]-> plotPhenotypeFilter
+plotPhenotypeFilter -[default_logic_color]-> gateScampClusters
+gateScampClusters -[default_logic_color]-> getFaustCountMatrix
+
+@enduml

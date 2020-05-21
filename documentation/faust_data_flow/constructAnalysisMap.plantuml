@@ -1,0 +1,22 @@
+@startuml
+top to bottom direction
+hide circle
+hide members
+
+!include global_faust_structure.plantuml
+
+
+' ------------------------------------------------------------------------------
+' constructAnalysisMap
+' ------------------------------------------------------------------------------
+' Input
+gspData -[adhoc_parameter_color]-> constructAnalysisMap: function input
+sampleNames -[adhoc_parameter_color]-> constructAnalysisMap: function input
+userImputationHierarchy -[input_color]-> constructAnalysisMap: function input
+userExperimentalUnit -[input_color]-> constructAnalysisMap: function input
+userDebugFlag -[input_color]-> constructAnalysisMap: function input
+userProjectPath -[input_color]-> constructAnalysisMap: function input
+' Output - File creation
+constructAnalysisMap -[output_color]-> analysisMapRDS: creates file
+
+@enduml
