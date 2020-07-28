@@ -32,11 +32,11 @@ if(total_parameters_provided_by_user == 0) {
 
 // FAUST Required
 params.input_gating_set_directory = "$baseDir/input"
-params.active_channels_path = "$baseDir/helper_files/active_channels.rds"
-params.channel_bounds_path = "$baseDir/helper_files/channel_bounds.rds"
-params.supervised_list_path = "$baseDir/helper_files/supervised_list.rds"
 
 // FAUST Optional
+params.channel_bounds_path = ""
+params.active_channels_path = ""
+params.supervised_list_path = ""
 params.imputation_hierarchy = ""
 params.experimental_unit = "name"
 params.starting_cell_population = "root"
@@ -72,9 +72,22 @@ workflow {
     input:
         // Required
         input_gating_set_directory = Channel.fromPath(params.input_gating_set_directory)
-        active_channels_path = Channel.fromPath(params.active_channels_path)
-        channel_bounds_path = Channel.fromPath(params.channel_bounds_path)
-        supervised_list_path = Channel.fromPath(params.supervised_list_path)
+        // Optional - reasonable defaults if missing. 
+        if(params.active_channels_path){
+            active_channels_path = Channel.fromPath(params.active_channels_path)
+        }else{
+            active_channels_path = Channel.empty().ifEmpty("")
+        }
+        if(params.channel_bounds_path){
+            channel_bounds_path = Channel.fromPath(params.channel_bounds_path)
+        }else{
+            channel_bounds_path = Channel.empty().ifEmpty("")
+        }
+        if(params.supervised_list_path){
+            supervised_list_path = Channel.fromPath(params.supervised_list_path)
+        }else{
+            supervised_list_path = Channel.empty().ifEmpty("")
+        }
         // Optional - Statistical
         starting_cell_population = params.starting_cell_population
         imputation_hierarchy = params.imputation_hierarchy

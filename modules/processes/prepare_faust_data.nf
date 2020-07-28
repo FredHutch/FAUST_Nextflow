@@ -46,11 +46,18 @@ process prepareFAUSTData {
             convert_legacy_gs("${input_gating_set_directory_channel}", converted_gating_set_directory_path)
             gating_set <- try(flowWorkspace::load_gs(converted_gating_set_directory_path))
         }
-
-        active_channels_rds_object <- readRDS("${active_channels_path_channel}")
-        channel_bounds_rds_object <- readRDS("${channel_bounds_path_channel}")
-        supervised_list_rds_object <- readRDS("${supervised_list_path_channel}")
-
+        active_channels_rds_object<-NULL
+        channel_bounds_rds_object<-NULL
+        supervised_list_rds_object<-NULL
+        if(file.exists("${active_channels_path_channel}")){
+            active_channels_rds_object <- readRDS("${active_channels_path_channel}")
+        }
+        if(file.exists("${channel_bounds_path_channel}")){
+            channel_bounds_rds_object <- readRDS("${channel_bounds_path_channel}")
+        }
+        if(file.exists("${supervised_list_path_channel}")){
+            supervised_list_rds_object <- readRDS("${supervised_list_path_channel}")
+        }
         if(is.null(active_channels_rds_object)){
             active_channels_rds_object<-flowWorkspace::markernames(gating_set)
         }else if(is.na(active_channels_rds_object)){
