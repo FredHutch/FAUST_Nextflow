@@ -48,32 +48,22 @@ process prepareFAUSTData {
         }
         active_channels_rds_object<-NULL
         channel_bounds_rds_object<-NULL
-        supervised_list_rds_object<-NULL
-        if(file.exists("${active_channels_path_channel}")){
-            active_channels_rds_object <- readRDS("${active_channels_path_channel}")
-        }
-        if(file.exists("${channel_bounds_path_channel}")){
-            channel_bounds_rds_object <- readRDS("${channel_bounds_path_channel}")
-        }
-        if(file.exists("${supervised_list_path_channel}")){
-            supervised_list_rds_object <- readRDS("${supervised_list_path_channel}")
-        }
-        if(is.null(active_channels_rds_object)){
-            active_channels_rds_object<-flowWorkspace::markernames(gating_set)
-        }else if(is.na(active_channels_rds_object)){
+        supervised_list_rds_object<-NULL        
+        active_channels_rds_object <- try(readRDS("${active_channels_path_channel}"),silent=TRUE)
+        channel_bounds_rds_object <- try(readRDS("${channel_bounds_path_channel}"),silent=TRUE)
+        supervised_list_rds_object <- try(readRDS("${supervised_list_path_channel}"),silent=TRUE)
+        if(inherits(active_channels_rds_object,"try-error")){
             active_channels_rds_object<-flowWorkspace::markernames(gating_set)
         }
-
-        if(is.null(channel_bounds_rds_object)){
+        if(inherits(channel_bounds_rds_object,"try-error")){
             channel_bounds_rds_object<-""
-        }else if(is.na(channel_bounds_rds_object)){
-            channel_bounds_rds_object<-""
-        }
-
-        if(is.null(supervised_list_rds_object)){
+        }        
+        if(inherits(supervised_list_rds_object,"try-error")){
             supervised_list_rds_object<-NA
         }
-
+        print(supervised_list_rds_object)
+        print(channel_bounds_rds_object)
+        print(active_channels_rds_object)
         gating_set_p_data <- flowWorkspace::pData(gating_set)
         sample_names_rds_object <- flowWorkspace::sampleNames(gating_set)
 
